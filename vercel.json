@@ -1,4 +1,8 @@
 {
+  "buildCommand": "echo 'No build required'",
+  "outputDirectory": "./",
+  "installCommand": "echo 'No dependencies to install'",
+  "devCommand": "python -m http.server 8000",
   "cleanUrls": true,
   "trailingSlash": false,
   "headers": [
