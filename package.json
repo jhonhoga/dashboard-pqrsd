@@ -1,0 +1,32 @@
+{
+  "name": "dashboard-pqrsd",
+  "version": "1.0.0",
+  "description": "Dashboard de Análisis de PQRSD - Sistema de gestión y visualización de Peticiones, Quejas, Reclamos, Sugerencias y Denuncias",
+  "main": "index.html",
+  "scripts": {
+    "dev": "python -m http.server 8000",
+    "build": "echo 'Static site - no build required'",
+    "start": "echo 'Static site deployed'"
+  },
+  "keywords": [
+    "dashboard",
+    "pqrsd",
+    "analytics",
+    "charts",
+    "excel",
+    "government",
+    "colombia",
+    "data-visualization"
+  ],
+  "author": "Jhon Home García",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

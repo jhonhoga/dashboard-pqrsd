@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dashboard interactivo para análisis de PQRSD - Peticiones, Quejas, Reclamos, Sugerencias y Denuncias del sector público colombiano">
+    <meta name="keywords" content="PQRSD, dashboard, análisis, datos, gobierno, colombia, peticiones, quejas, reclamos">
+    <meta name="author" content="Jhon Home García">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Dashboard de Análisis de PQRSD">
+    <meta property="og:description" content="Sistema interactivo de visualización y análisis de datos PQRSD para el sector público">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="images.png">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Dashboard de Análisis de PQRSD">
+    <meta name="twitter:description" content="Dashboard interactivo para análisis de PQRSD del sector público">
+    
+    <!-- Performance and Security -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="theme-color" content="#0d1117">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <title>Dashboard de Análisis de PQRSD</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <img src="images.png" alt="logo">
+                <h1 class="title">Dashboard Atención al Ciudadano</h1>
+            </div>
+            <div class="upload-section">
+                <label for="fileUploader" class="upload-button">
+                    <i class="fas fa-upload"></i>
+                    <span>Subir Reporte</span>
+                </label>
+                <input type="file" id="fileUploader" accept=".xlsx" style="display: none;">
+                <div id="file-status" class="file-status hidden">
+                    <i class="fas fa-check-circle"></i>
+                    <span id="file-name"></span>
+                </div>
+            </div>
+        </div>
+        <div id="loading" class="loading hidden">
+            <div class="loading-spinner"></div>
+            <span>Procesando archivo...</span>
+        </div>
+    </header>
+
+    <!-- Dashboard Content -->
+    <main class="dashboard" id="dashboard">
+        <!-- Welcome Message -->
+        <div id="welcome-message" class="welcome-message">
+            <div class="welcome-content">
+                <i class="fas fa-file-excel welcome-icon"></i>
+                <h2>Bienvenido al Dashboard de PQRSD</h2>
+                <p>Sube un archivo Excel (.xlsx) para comenzar el análisis de los datos de PQRSD</p>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Análisis de Tiempos</span>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-filter"></i>
+                        <span>Filtros Dinámicos</span>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Visualizaciones</span>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-building"></i>
+                        <span>Por Dependencia</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel de Filtros -->
+        <section class="filters-panel hidden" id="filters-panel">
+            <div class="filters-content">
+                <h3><i class="fas fa-filter"></i> Filtros</h3>
+                <div class="filters-grid">
+                    <div class="filter-group">
+                        <label for="year-filter">Año</label>
+                        <select id="year-filter">
+                            <option value="">Todos los años</option>
+                        </select>
+                        <label for="dependency-filter">Dependencia</label>
+                        <select id="dependency-filter">
+                            <option value="">Todas las dependencias</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="month-range">Rango de Meses</label>
+                        <div class="month-range-container">
+                            <div class="month-labels">
+                                <span class="month-label-start">Enero</span>
+                                <span class="month-label-end">Diciembre</span>
+                            </div>
+                            <div class="range-slider-wrapper">
+                                <input type="range" id="month-range-start" min="1" max="12" value="1" class="range-slider range-start">
+                                <input type="range" id="month-range-end" min="1" max="12" value="12" class="range-slider range-end">
+                                <div class="range-track"></div>
+                                <div class="range-fill"></div>
+                            </div>
+                            <div class="range-values">
+                                <span id="month-start-value">Enero</span>
+                                <span class="range-separator">-</span>
+                                <span id="month-end-value">Diciembre</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filter-group">
+                        <label for="types-filter">Errores de Tipos</label>
+                        <select id="types-filter">
+                            <option value="">Todos los tipos</option>
+                            <option value="sin-tipologia">Sin tipología</option>
+                        </select>
+                        <label for="radicados-filter">Errores en Radicados</label>
+                        <select id="radicados-filter">
+                            <option value="">Todos los radicados</option>
+                            <option value="sin-numeracion">Radicados sin numeración</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="typesall-filter">
+                            Filtrar por Tipo (Selección Múltiple)
+                            <span id="types-count" class="selection-count">0 seleccionados</span>
+                        </label>
+                        <select id="typesall-filter" multiple size="6" class="multi-select">
+                            <!-- Se llena dinámicamente con los tipos únicos -->
+                        </select>
+                    </div>
+                    <div class="filter-actions">
+                        <button id="view-details" class="view-button">
+                            <i class="fas fa-list"></i>
+                            Ver+
+                        </button>
+                        <button id="clear-filters" class="clear-button">
+                            <i class="fas fa-times"></i>
+                            Borrar Filtros
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tarjetas KPIs -->
+        <section class="kpis-section hidden" id="kpis-section">
+            <div class="kpis-grid">
+                <div class="kpi-card total">
+                    <div class="kpi-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <div class="kpi-content">
+                        <h3>Total Radicados</h3>
+                        <span class="kpi-value" id="total-radicados">0</span>
+                    </div>
+                </div>
+                
+                <div class="kpi-card success">
+                    <div class="kpi-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="kpi-content">
+                        <h3>Contestados</h3>
+                        <span class="kpi-value" id="total-contestados">0</span>
+                    </div>
+                </div>
+                
+                <div class="kpi-card warning">
+                    <div class="kpi-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="kpi-content">
+                        <h3>No Contestados</h3>
+                        <span class="kpi-value" id="total-no-contestados">0</span>
+                    </div>
+                </div>
+                
+                <div class="kpi-card info">
+                    <div class="kpi-icon">
+                        <i class="fas fa-minus-circle"></i>
+                    </div>
+                    <div class="kpi-content">
+                        <h3>No Requieren Respuesta</h3>
+                        <span class="kpi-value" id="total-no-requieren">0</span>
+                    </div>
+                </div>
+                
+                <div class="kpi-card danger">
+                    <div class="kpi-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="kpi-content">
+                        <h3>Plazo Vencido</h3>
+                        <span class="kpi-value" id="total-vencidas">0</span>
+                    </div>
+                </div>
+                
+                <div class="kpi-card active">
+                    <div class="kpi-icon">
+                        <i class="fas fa-hourglass-half"></i>
+                    </div>
+                    <div class="kpi-content">
+                        <h3>Plazo Vigente</h3>
+                        <span class="kpi-value" id="total-vigentes">0</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Análisis de Tipos (Top 5) -->
+        <section class="types-analysis hidden" id="types-analysis">
+            <div class="section-header">
+                <h3><i class="fas fa-trophy"></i> Top 5 Tipos de PQRSD</h3>
+            </div>
+            <div class="types-grid" id="types-grid">
+                <!-- Se llena dinámicamente -->
+            </div>
+        </section>
+
+        <!-- Gráfico de Tendencia por Medios de Recepción -->
+        <section class="trend-analysis hidden" id="trend-analysis">
+            <div class="trend-container">
+                <div class="chart-header">
+                    <h4><i class="fas fa-chart-line"></i> Tendencia de PQRSD por Medios de Recepción</h4>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="chartTendencia"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Gráficos -->
+        <section class="charts-section hidden" id="charts-section">
+            <div class="charts-grid">
+                <!-- Gráfico de Barras - Radicados No Contestados por Dependencia -->
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h4><i class="fas fa-chart-bar"></i> Radicados No Contestados por Dependencia</h4>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="chartNoContestados"></canvas>
+                    </div>
+                </div>
+
+                <!-- Gráfico de Barras - Radicados Vencidos por Dependencia -->
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h4><i class="fas fa-chart-bar"></i> Radicados Vencidos por Dependencia</h4>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="chartVencidos"></canvas>
+                    </div>
+                </div>
+
+                <!-- Gráfico de Barras - Proporción de Radicados por Dependencia -->
+                <div class="chart-container full-width">
+                    <div class="chart-header">
+                        <h4><i class="fas fa-chart-bar"></i> Total de Radicados por Dependencia (Top 12)</h4>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="chartTreemap"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer hidden" id="footer">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <p><i class="fas fa-calendar"></i> Última actualización: <span id="last-update"></span></p>
+                    <p><i class="fas fa-database"></i> Total de registros procesados: <span id="total-records"></span></p>
+                    <p><i class="fas fa-user"></i> Desarrollado por Jhon Home García</p>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Error Modal -->
+    <div id="error-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-exclamation-triangle"></i> Error</h3>
+                <button class="modal-close" onclick="closeErrorModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="error-message"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeErrorModal()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Detalles -->
+    <div id="details-modal" class="modal">
+        <div class="modal-content details-modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-exclamation-triangle"></i> PQRSD Pendientes de Respuesta</h2>
+                <div class="modal-header-buttons">
+                    <button class="export-excel-btn" onclick="exportToExcel()" title="Exportar a Excel">
+                        <i class="fas fa-file-excel"></i>
+                        <span>Excel</span>
+                    </button>
+                    <button class="modal-close" onclick="closeDetailsModal()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-body details-modal-body">
+                <div class="details-summary">
+                    <div class="summary-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span id="total-filtered">0</span>
+                            <label>Total Pendientes</label>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-clock"></i>
+                            <span id="vigentes-count">0</span>
+                            <label>Plazo Vigente</label>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-times-circle"></i>
+                            <span id="vencidos-count">0</span>
+                            <label>Plazo Vencido</label>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-calendar"></i>
+                            <span id="date-range">-</span>
+                            <label>Rango Fechas</label>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-building"></i>
+                            <span id="dependencies-count">-</span>
+                            <label>Dependencias</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="table-controls">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="table-search" placeholder="Buscar PQRSD pendientes...">
+                    </div>
+                    <div class="pagination-info">
+                        <span id="pagination-text">Mostrando 0 de 0 registros</span>
+                    </div>
+                </div>
+                
+                <div class="details-table-container">
+                    <table id="details-table" class="details-table">
+                        <thead>
+                            <tr>
+                                <th class="sortable" data-column="codigo">
+                                    <i class="fas fa-hashtag"></i> Radicado
+                                    <i class="fas fa-sort sort-icon"></i>
+                                </th>
+                                <th class="sortable" data-column="asunto">
+                                    <i class="fas fa-file-text"></i> Asunto
+                                    <i class="fas fa-sort sort-icon"></i>
+                                </th>
+                                <th class="sortable" data-column="fechaRegistro">
+                                    <i class="fas fa-calendar"></i> Fecha Registro
+                                    <i class="fas fa-sort sort-icon"></i>
+                                </th>
+                                <th class="sortable" data-column="dependenciaSimplificada">
+                                    <i class="fas fa-building"></i> Dependencia
+                                    <i class="fas fa-sort sort-icon"></i>
+                                </th>
+                                <th class="sortable" data-column="estadoVencimiento">
+                                    <i class="fas fa-clock"></i> Estado
+                                    <i class="fas fa-sort sort-icon"></i>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="details-table-body">
+                            <!-- Los datos se insertan aquí dinámicamente -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="table-pagination">
+                    <div class="pagination-controls">
+                        <button id="prev-page" class="page-btn" disabled>
+                            <i class="fas fa-chevron-left"></i> Anterior
+                        </button>
+                        <div class="page-numbers" id="page-numbers">
+                            <!-- Los números de página se generan aquí -->
+                        </div>
+                        <button id="next-page" class="page-btn">
+                            Siguiente <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CDN - Librerías Externas -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-treemap@1.0.1/dist/chartjs-chart-treemap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.10/dayjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.10/plugin/customParseFormat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.10/plugin/weekday.js"></script>
+
+    <script src="script.js"></script>
+</body>
+</html>
