@@ -7,26 +7,26 @@
 // Verificar que todas las librerías están disponibles
 function verificarLibrerias() {
     console.log('🔍 Verificando disponibilidad de librerías...');
-    
+
     const librerias = [
         { nombre: 'XLSX', objeto: window.XLSX },
         { nombre: 'Chart.js', objeto: window.Chart },
         { nombre: 'Day.js', objeto: window.dayjs }
     ];
-    
+
     librerias.forEach(lib => {
         console.log(`   - ${lib.nombre}: ${lib.objeto ? '✅ Disponible' : '❌ No disponible'}`);
     });
-    
+
     const faltantes = librerias.filter(lib => !lib.objeto);
-    
+
     if (faltantes.length > 0) {
         const mensaje = `Error: Las siguientes librerías no están disponibles: ${faltantes.map(lib => lib.nombre).join(', ')}`;
         console.error(mensaje);
         mostrarError(mensaje + '. Por favor recargue la página.');
         return false;
     }
-    
+
     return true;
 }
 
@@ -167,7 +167,7 @@ const MAPEO_DEPENDENCIAS = {
     "Despacho del Gobernador - Secretaría Privada - Oficina Asesora de Protocolo": "PROTOCOLO",
     "Despacho del Gobernador - Secretaría Privada - Oficina Asesora de Comunicaciones y Prensa": "PRENSA",
     "Despacho del Gobernador - Oficina de Control Interno": "OCI",
-    "Despacho del Gobernador - Oficina de Control Disciplinario": "OCIDI",
+    "Despacho del Gobernador - Oficina de Control Disciplinario": "OCD INSTRUCCION",
     "Despacho del Gobernador - Oficina de Gestión Social": "MUJER",
     "Despacho del Gobernador - Oficina de Gestión del Riesgo de Desastres": "OGDRD",
     "Secretaría de la Mujer": "MUJER",
@@ -196,11 +196,11 @@ const MAPEO_DEPENDENCIAS = {
     "Secretaría del Interior y Asuntos Gubernamentales - Oficina de Juventudes": "INTERIOR",
     "Secretaría del Interior y Asuntos Gubernamentales - Dirección de Seguridad y Convivencia Ciudadana": "INTERIOR",
     "Secretaría del Interior y Asuntos Gubernamentales - Dirección de Asistencia Municipal": "INTERIOR",
-    "Secretaría de Desarrollo Regional y Ordenamiento Territorial": "DES. REGIONAL Y ORD",
-    "Secretaría de Desarrollo Regional y Ordenamiento Territorial - Dirección de Ambiente y Desarrollo Sostenible": "DES. REGIONAL Y ORD",
-    "Secretaría de Desarrollo Regional y Ordenamiento Territorial - Dirección de Gestión Territorial Montes de María": "DES. REGIONAL Y ORD",
-    "Secretaría de Desarrollo Regional y Ordenamiento Territorial - Dirección de Gestión Territorial Sur de Bolívar": "DES. REGIONAL Y ORD",
-    "Secretaría de Desarrollo Regional y Ordenamiento Territorial - Dirección de Gestión Territorial Norte y Dique": "DES. REGIONAL Y ORD",
+    "Secretaría de Desarrollo Regional y Ordenamiento Territorial": "DESARROLLO ECONOMICO",
+    "Secretaría de Desarrollo Regional y Ordenamiento Territorial - Dirección de Ambiente y Desarrollo Sostenible": "DESARROLLO ECONOMICO",
+    "Secretaría de Desarrollo Regional y Ordenamiento Territorial - Dirección de Gestión Territorial Montes de María": "DESARROLLO ECONOMICO",
+    "Secretaría de Desarrollo Regional y Ordenamiento Territorial - Dirección de Gestión Territorial Sur de Bolívar": "DESARROLLO ECONOMICO",
+    "Secretaría de Desarrollo Regional y Ordenamiento Territorial - Dirección de Gestión Territorial Norte y Dique": "DESARROLLO ECONOMICO",
     "Secretaría de Víctimas y Reconciliación": "VICTIMAS",
     "Secretaría de Víctimas y Reconciliación - Dirección de Reconciliación y Memoria Histórica": "VICTIMAS",
     "Secretaría de Salud": "SALUD",
@@ -217,9 +217,10 @@ const MAPEO_DEPENDENCIAS = {
     "Secretaría de Educación - Dirección de Inspección, Vigilancia y Control en Educación": "EDUCACION",
     "Secretaría de Educación - Dirección Administración Planta Establecimientos Educativos": "EDUCACION",
     "Secretaría de Educación - Dirección Administrativa y Financiera": "EDUCACION",
-    "Secretaría de Hábitat": "HABITAT",
-    "Secretaría de Hábitat - Dirección de Servicios Públicos y Saneamiento Básico": "HABITAT",
-    "Secretaría de Hábitat - Dirección de Vivienda": "HABITAT",
+    "Secretaría de Hábitat": "SERVICIOS PUBLICOS",
+    "Secretaría de Servicios Públicos": "SERVICIOS PUBLICOS",
+    "Secretaría de Hábitat - Dirección de Servicios Públicos y Saneamiento Básico": "SERVICIOS PUBLICOS",
+    "Secretaría de Hábitat - Dirección de Vivienda": "DESARROLLO ECONOMICO",
     "Secretaría de Infraestructura": "INFRAESTRUCTURA",
     "Secretaría de Infraestructura - Dirección de Planeación de Infraestructura": "INFRAESTRUCTURA",
     "Secretaría de Infraestructura - Dirección de Construcción, Interventoría y Supervisión de Obras": "INFRAESTRUCTURA",
@@ -266,7 +267,7 @@ const MAPEO_DEPENDENCIAS = {
     "Unidad de Relaciones Públicas y Protocolo": "PROTOCOLO",
     "Grupo de Pasaporte": "PASAPORTE",
     "Dirección de TIC": "TIC",
-    "Dirección de Ambiente": "DES. REGIONAL Y ORD",
+    "Dirección de Ambiente": "DESARROLLO ECONOMICO",
     "Oficina de Control Disciplinario": "OCD INSTRUCCIÓN",
     "Dirección de Defensa Judicial": "JURIDICA",
     "Dirección Administrativa y Financiera SED": "EDUCACION",
@@ -275,7 +276,7 @@ const MAPEO_DEPENDENCIAS = {
     "Dirección de Juventudes": "INTERIOR",
     "Oficina de Juventudes": "INTERIOR",
     "Grupo de Conceptos y Actos Administrativos": "JURIDICA",
-    "Dirección de Vivienda": "DES. ECONOMICO",
+    "Dirección de Vivienda": "DESARROLLO ECONOMICO",
     "Dirección de Presupuesto": "HACIENDA",
     "Secretaría De La Igualdad": "IGUALDAD",
     "Oficina de Control Disciplinario de Juzgamiento": "OCD JUZGAMIENTO",
@@ -292,7 +293,7 @@ const MAPEO_DEPENDENCIAS = {
     "Dirección de Gestión Social": "MUJER",
     "Dirección de Planeación de Infraestructura": "INFRAESTRUCTURA",
     "Instituto de Cultura y Turismo de Bolivar": "ICULTUR",
-    "Secretaría de Desarrollo Económico": "DES. ECONOMICO",
+    "Secretaría de Desarrollo Económico": "DESARROLLO ECONOMICO",
     "Secretaría de Tecnologías de la Información y de las Comunicaciones": "TIC",
     "Oficina Asesora de Comunicaciones y Prensa": "PRENSA",
     "Dirección de Participación Ciudadana y Acción Comunal": "IGUALDAD",
@@ -317,13 +318,13 @@ const MAPEO_DEPENDENCIAS = {
     "Dirección de Gestión Territorial Sur de Bolívar": "INTERIOR",
     "Dirección Técnica de Cultura": "ICULTUR",
     "Grupo de Crédito Público": "HACIENDA",
-    "Dirección de Servicios Públicos y Saneamiento Básico": "HABITAT",
+    "Dirección de Servicios Públicos y Saneamiento Básico": "SERVICIOS PUBLICOS",
     "Dirección de Planeación de Seguridad": "SEGURIDAD",
     "Grupo de Bienestar Social y Desarrollo Humano": "FUNCION PUBLICA",
     "Dirección del Sur de Bolivar": "INTERIOR",
     "Dirección de Asuntos de la Mujer": "MUJER",
     "Grupo de Correspondencia": "GESTION DOCUMENTAL",
-    "Oficina de Control Interno Disciplinario de Instruccion": "OCIDI",
+    "Oficina de Control Interno Disciplinario de Instruccion": "OCD INSTRUCCION",
     "Oficina Asesora de Asuntos Jurídicos de la Secretaría de Educación": "EDUCACION",
     "Unidad de Atención al Ciudadano": "ATN CIUDADANO",
     "Juridica": "JURIDICA"
@@ -344,10 +345,10 @@ const FESTIVOS_COLOMBIA_2025 = [
     '2025-12-08', '2025-12-25'
 ];
 const FESTIVOS_COLOMBIA_2026 = [
-   '2026-01-01', '2026-01-12', '2026-03-23', '2026-04-02','2026-04-03',
-   '2026-05-01', '2026-05-18', '2026-05-08', '2026-06-15', '2026-06-29', '2026-07-20', '2026-08-07',
-   '2026-08-17', '2026-10-12', '2026-11-02', '2026-11-16', '2026-12-08',
-   '2026-12-25'
+    '2026-01-01', '2026-01-12', '2026-03-23', '2026-04-02', '2026-04-03',
+    '2026-05-01', '2026-05-18', '2026-05-08', '2026-06-15', '2026-06-29', '2026-07-20', '2026-08-07',
+    '2026-08-17', '2026-10-12', '2026-11-02', '2026-11-16', '2026-12-08',
+    '2026-12-25'
 ];
 
 // Variables globales
@@ -381,7 +382,7 @@ function esFestivo(fecha) {
  */
 function esFinDeSemana(fecha) {
     const dia = dayjs(fecha).day();
-    
+
     // Debug para verificar días de la semana en septiembre 2025
     if (fecha.month() === 8 && fecha.year() === 2025 && Math.random() < 0.01) { // septiembre = mes 8
         console.log('🗓️ Debug fin de semana:', {
@@ -392,7 +393,7 @@ function esFinDeSemana(fecha) {
             esSabado: dia === 6
         });
     }
-    
+
     return dia === 0 || dia === 6; // 0 = domingo, 6 = sábado
 }
 
@@ -403,7 +404,7 @@ function esDiaHabil(fecha) {
     const esFS = esFinDeSemana(fecha);
     const esFest = esFestivo(fecha);
     const esHabil = !esFS && !esFest;
-    
+
     // Debug para fechas de septiembre 2025
     if (fecha.month() === 8 && fecha.year() === 2025 && Math.random() < 0.01) {
         console.log('🏢 Debug día hábil:', {
@@ -413,7 +414,7 @@ function esDiaHabil(fecha) {
             esDiaHabil: esHabil
         });
     }
-    
+
     return esHabil;
 }
 
@@ -423,10 +424,10 @@ function esDiaHabil(fecha) {
 function sumarDiasHabiles(fechaInicio, diasHabiles) {
     let fecha = dayjs(fechaInicio);
     let diasRestantes = diasHabiles;
-    
+
     // Debug para casos específicos - cualquier fecha de agosto 2025
     const esDebug = fechaInicio.month() === 7 && fechaInicio.year() === 2025 && Math.random() < 0.001; // agosto = mes 7
-    
+
     if (esDebug) {
         console.log('🔍 Calculando días hábiles:', {
             fechaInicio: fechaInicio.format('DD/MM/YYYY dddd'),
@@ -434,11 +435,11 @@ function sumarDiasHabiles(fechaInicio, diasHabiles) {
             fechaActual: dayjs().format('DD/MM/YYYY dddd')
         });
     }
-    
+
     // CORRECCIÓN IMPORTANTE: El plazo inicia al día SIGUIENTE del registro
     // Si se registra el 29/08, el día 1 para contar es el 30/08
     fecha = fecha.add(1, 'day');
-    
+
     while (diasRestantes > 0) {
         if (esDiaHabil(fecha)) {
             diasRestantes--;
@@ -448,16 +449,16 @@ function sumarDiasHabiles(fechaInicio, diasHabiles) {
         } else if (esDebug) {
             console.log(`  Omitido: ${fecha.format('DD/MM/YYYY dddd')} (no hábil)`);
         }
-        
+
         if (diasRestantes > 0) {
             fecha = fecha.add(1, 'day');
         }
     }
-    
+
     if (esDebug) {
         console.log('  ✅ Fecha máxima calculada:', fecha.format('DD/MM/YYYY dddd'));
     }
-    
+
     return fecha;
 }
 
@@ -469,30 +470,30 @@ function parsearFecha(fechaStr) {
     if (!fechaStr || fechaStr === '' || fechaStr === null || fechaStr === undefined) {
         return null;
     }
-    
+
     // Convertir a string si no lo es
     let fechaString = String(fechaStr).trim();
-    
+
     // Verificar valores que indican "no aplica"
     const valoresNoAplica = ['n.a', 'na', 'no tramitada', 'no contestado', 'pendiente', 'empty'];
     if (valoresNoAplica.some(val => fechaString.toLowerCase().includes(val))) {
         return null;
     }
-    
-        // Si contiene múltiples fechas separadas por " - ", tomar la primera
-        if (fechaString.includes(' - ')) {
-            const fechas = fechaString.split(' - ');
-            fechaString = fechas[0].trim();
-            // Solo log en modo debug si es necesario
-            // console.log(`📅 Fecha múltiple detectada, usando la primera: ${fechaString}`);
-        }    // Si está vacía después de la limpieza
+
+    // Si contiene múltiples fechas separadas por " - ", tomar la primera
+    if (fechaString.includes(' - ')) {
+        const fechas = fechaString.split(' - ');
+        fechaString = fechas[0].trim();
+        // Solo log en modo debug si es necesario
+        // console.log(`📅 Fecha múltiple detectada, usando la primera: ${fechaString}`);
+    }    // Si está vacía después de la limpieza
     if (!fechaString || fechaString === '') {
         return null;
     }
-    
+
     // Intentar diferentes formatos
     let fecha = null;
-    
+
     try {
         // Formato dd/mm/yy
         if (fechaString.match(/^\d{1,2}\/\d{1,2}\/\d{2}$/)) {
@@ -521,22 +522,22 @@ function parsearFecha(fechaStr) {
         else if (fechaString.length > 0) {
             fecha = dayjs(fechaString);
         }
-        
+
         // Verificar que la fecha es válida y razonable (entre 2020 y 2026 para incluir 2025)
         if (fecha && fecha.isValid() && fecha.year() >= 2020 && fecha.year() <= 2026) {
             return fecha;
         } else {
             // Solo mostrar warning para casos realmente problemáticos
-            if (!valoresNoAplica.some(val => fechaString.toLowerCase().includes(val)) && 
+            if (!valoresNoAplica.some(val => fechaString.toLowerCase().includes(val)) &&
                 !fechaString.includes(' - ') && fechaString.length > 0) {
                 console.warn(`⚠️ Fecha no reconocida: ${fechaString}`);
             }
             return null;
         }
-        
+
     } catch (error) {
         // Silenciar warnings para casos conocidos y fechas múltiples
-        if (!valoresNoAplica.some(val => fechaString.toLowerCase().includes(val)) && 
+        if (!valoresNoAplica.some(val => fechaString.toLowerCase().includes(val)) &&
             !fechaString.includes(' - ')) {
             console.warn(`⚠️ Error parseando fecha "${fechaString}":`, error.message);
         }
@@ -551,19 +552,19 @@ function determinarEstado(oficioRespuesta, fechaRespuesta) {
     // Normalizar valores - convertir a string de forma segura
     const oficioStr = oficioRespuesta ? String(oficioRespuesta).toLowerCase().trim() : '';
     const fechaStr = fechaRespuesta ? String(fechaRespuesta).toLowerCase().trim() : '';
-    
+
     // Casos específicos que indican "No Requiere Respuesta"
     // Solo cuando EXPLÍCITAMENTE dice NA, N.A, NO TRAMITADA, etc.
     const noRequierePatterns = ['n.a', 'na', 'no tramitada', 'no aplica'];
-    
-    const oficioEsNoRequiere = noRequierePatterns.some(pattern => 
+
+    const oficioEsNoRequiere = noRequierePatterns.some(pattern =>
         oficioStr === pattern || oficioStr.includes(pattern)
     );
-    
-    const fechaEsNoRequiere = noRequierePatterns.some(pattern => 
+
+    const fechaEsNoRequiere = noRequierePatterns.some(pattern =>
         fechaStr === pattern || fechaStr.includes(pattern)
     );
-    
+
     // Solo es "No Requiere Respuesta" si EXPLÍCITAMENTE tiene NA, N.A, etc.
     if (oficioEsNoRequiere || fechaEsNoRequiere) {
         // Debug temporal para verificar casos
@@ -577,13 +578,13 @@ function determinarEstado(oficioRespuesta, fechaRespuesta) {
         }
         return 'No Requiere Respuesta';
     }
-    
+
     // Si tiene fecha de respuesta válida (que se puede parsear)
     const fechaParsed = parsearFecha(fechaRespuesta);
     if (fechaParsed && fechaParsed.isValid()) {
         return 'Contestado';
     }
-    
+
     // Si no tiene fecha de respuesta válida y tampoco es explícitamente "No Requiere"
     return 'No Contestado';
 }
@@ -595,13 +596,13 @@ function calcularEstadoVencimiento(fechaRegistro, tipo, fechaRespuesta, estado) 
     if (estado === 'No Requiere Respuesta') {
         return 'No Aplica';
     }
-    
+
     // Obtener plazo del tipo
     const plazo = PLAZOS_POR_TIPO[tipo] || 10; // Plazo por defecto: 10 días
-    
+
     // Calcular fecha máxima de respuesta
     const fechaMaxima = sumarDiasHabiles(fechaRegistro, plazo);
-    
+
     if (estado === 'Contestado') {
         const fechaRespuestaParsed = parsearFecha(fechaRespuesta);
         if (fechaRespuestaParsed && fechaRespuestaParsed.isAfter(fechaMaxima, 'day')) {
@@ -611,7 +612,7 @@ function calcularEstadoVencimiento(fechaRegistro, tipo, fechaRespuesta, estado) 
         }
     } else if (estado === 'No Contestado') {
         const fechaActual = dayjs();
-        
+
         // Debug temporal para verificar cálculos
         if ((tipo === 'Derecho de Petición (15 Días)' || tipo.includes('15 Días')) && Math.random() < 0.01) {
             console.log('🔍 Debug Plazo Detallado:', {
@@ -626,7 +627,7 @@ function calcularEstadoVencimiento(fechaRegistro, tipo, fechaRespuesta, estado) 
                 resultadoEstado: fechaActual.isAfter(fechaMaxima, 'day') ? 'Vencido' : 'Vigente'
             });
         }
-        
+
         // Debug específico para registros que se vencen exactamente HOY o mañana
         if (fechaMaxima.isSame(dayjs(), 'day') || fechaMaxima.isSame(dayjs().add(1, 'day'), 'day')) {
             console.log('⏰ Registro que se vence HOY/MAÑANA:', JSON.stringify({
@@ -641,7 +642,7 @@ function calcularEstadoVencimiento(fechaRegistro, tipo, fechaRespuesta, estado) 
                 clasificacion: fechaActual.isAfter(fechaMaxima, 'day') ? 'Plazo Vencido' : 'Plazo Vigente'
             }, null, 2));
         }
-        
+
         // CORREGIDO: Un plazo se vence DESPUÉS del último día hábil, no durante
         // Si estamos en el mismo día que la fecha máxima, el plazo AÚN está vigente
         // Solo se vence si ya pasó completamente el día límite
@@ -652,7 +653,7 @@ function calcularEstadoVencimiento(fechaRegistro, tipo, fechaRespuesta, estado) 
             return 'No Contestado - Plazo Vigente';
         }
     }
-    
+
     return 'Desconocido';
 }
 
@@ -663,14 +664,14 @@ function obtenerDependenciaSimplificada(dependenciaOriginal) {
     if (!dependenciaOriginal) {
         return 'SIN DEPENDENCIA';
     }
-    
+
     const dependenciaStr = String(dependenciaOriginal).trim();
-    
+
     // Buscar coincidencia exacta primero
     if (MAPEO_DEPENDENCIAS[dependenciaStr]) {
         return MAPEO_DEPENDENCIAS[dependenciaStr];
     }
-    
+
     // Buscar coincidencia parcial (case insensitive)
     const dependenciaLower = dependenciaStr.toLowerCase();
     for (const [key, value] of Object.entries(MAPEO_DEPENDENCIAS)) {
@@ -679,7 +680,7 @@ function obtenerDependenciaSimplificada(dependenciaOriginal) {
             return value;
         }
     }
-    
+
     // Si no encuentra mapeo, usar "OTROS" y loguear para revisión
     console.warn(`🔍 Dependencia sin mapear: "${dependenciaStr}"`);
     return 'OTROS';
@@ -690,10 +691,10 @@ function obtenerDependenciaSimplificada(dependenciaOriginal) {
  */
 function mostrarError(mensaje) {
     console.error('Error:', mensaje);
-    
+
     const errorModal = document.getElementById('error-modal');
     const errorMessage = document.getElementById('error-message');
-    
+
     if (errorModal && errorMessage) {
         errorMessage.textContent = mensaje;
         errorModal.classList.remove('hidden');
@@ -734,24 +735,24 @@ function ocultarCarga() {
 function procesarArchivo(archivo) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
-        
-        reader.onload = function(e) {
+
+        reader.onload = function (e) {
             try {
                 mostrarCarga();
-                
+
                 // Leer el archivo Excel
                 const data = new Uint8Array(e.target.result);
                 const workbook = XLSX.read(data, { type: 'array' });
-                
+
                 // Obtener la primera hoja
                 const sheetName = workbook.SheetNames[0];
                 const worksheet = workbook.Sheets[sheetName];
-                
+
                 console.log('📄 Hoja de Excel:', sheetName);
-                
+
                 // Convertir a JSON
                 const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-                
+
                 console.log('📊 Datos raw del Excel:');
                 console.log('- Total de filas:', jsonData.length);
                 console.log('- Últimas 5 filas completas:', jsonData.slice(-5));
@@ -764,28 +765,28 @@ function procesarArchivo(archivo) {
                 if (jsonData.length > 2) {
                     console.log('- Muestra fila 3:', jsonData[2]);
                 }
-                
+
                 if (jsonData.length < 2) {
                     throw new Error('El archivo no contiene datos suficientes');
                 }
-                
+
                 // Procesar los datos
                 const datosProcessados = procesarDatos(jsonData);
-                
+
                 resolve(datosProcessados);
-                
+
             } catch (error) {
                 reject(error);
             } finally {
                 ocultarCarga();
             }
         };
-        
-        reader.onerror = function() {
+
+        reader.onerror = function () {
             ocultarCarga();
             reject(new Error('Error al leer el archivo'));
         };
-        
+
         reader.readAsArrayBuffer(archivo);
     });
 }
@@ -796,33 +797,33 @@ function procesarArchivo(archivo) {
 function procesarDatos(jsonData) {
     const headers = jsonData[0];
     const filas = jsonData.slice(1);
-    
+
     console.log('📋 Headers encontrados:', headers);
     console.log('📊 Total de filas de datos:', filas.length);
-    
+
     // Validar encabezados esperados
     const encabezadosEsperados = [
         'Código', 'Asunto', 'Emisor', 'Fecha de registro', 'Hora de registro',
         'Tipo', 'Medio Recepción', 'Dependencia que recibe', 'Oficio de Respuesta', 'Fecha de respuesta'
     ];
-    
+
     // Verificar que existen los encabezados básicos
-    const encabezadosPresentes = encabezadosEsperados.filter(header => 
+    const encabezadosPresentes = encabezadosEsperados.filter(header =>
         headers.some(h => h && h.toString().toLowerCase().includes(header.toLowerCase()))
     );
-    
+
     console.log('✅ Headers presentes:', encabezadosPresentes);
-    
+
     if (encabezadosPresentes.length < 6) {
         throw new Error('El archivo no contiene las columnas esperadas. Verifique el formato.');
     }
-    
+
     const datosProcessados = [];
     let erroresContados = 0;
     const maxErrores = 10; // Limitar errores mostrados
-    
+
     console.log('🗓️ Fecha actual del sistema:', dayjs().format('DD/MM/YYYY HH:mm:ss dddd'));
-    
+
     // Debug específico para fechas críticas de septiembre 2025
     const fechasCriticas = [
         dayjs('2025-09-19'), // Hoy
@@ -830,25 +831,25 @@ function procesarDatos(jsonData) {
         dayjs('2025-09-21'), // Sábado
         dayjs('2025-09-22')  // Domingo
     ];
-    
+
     console.log('🔍 Verificación de fechas críticas:');
     fechasCriticas.forEach(fecha => {
         console.log(`  ${fecha.format('DD/MM/YYYY dddd')}: Fin semana=${esFinDeSemana(fecha)}, Festivo=${esFestivo(fecha)}, Hábil=${esDiaHabil(fecha)}`);
     });
-    
+
     // Contadores para debugging
     let contadorFilas = 0;
     let filasVacias = 0;
     let registros29Agosto = 0;
-    
+
     // Reusar variables existentes
     erroresContados = 0;
-    
+
     console.log(`📊 INICIANDO PROCESAMIENTO: ${filas.length} filas totales`);
-    
+
     filas.forEach((fila, index) => {
         contadorFilas++;
-        
+
         try {
             // Verificar que la fila no esté vacía
             if (!fila || fila.length === 0 || !fila.some(cell => cell !== null && cell !== undefined && cell !== '')) {
@@ -859,7 +860,7 @@ function procesarDatos(jsonData) {
                 }
                 return; // Saltar filas vacías
             }
-            
+
             // Extraer campos básicos (asumiendo orden fijo)
             const registro = {
                 codigo: fila[0] ? String(fila[0]).trim() : '',
@@ -873,7 +874,7 @@ function procesarDatos(jsonData) {
                 oficioRespuesta: fila[8] ? String(fila[8]).trim() : '',
                 fechaRespuesta: fila[9]
             };
-            
+
             // Validar que tiene datos mínimos
             if (!registro.codigo || !registro.fechaRegistro || !registro.tipo) {
                 if (erroresContados < maxErrores) {
@@ -886,7 +887,7 @@ function procesarDatos(jsonData) {
                 }
                 return;
             }
-            
+
             // Parsear fecha de registro
             const fechaRegistroParsed = parsearFecha(registro.fechaRegistro);
             if (!fechaRegistroParsed) {
@@ -896,21 +897,21 @@ function procesarDatos(jsonData) {
                 }
                 return;
             }
-            
+
             // Calcular campos derivados
             const estado = determinarEstado(registro.oficioRespuesta, registro.fechaRespuesta);
             const estadoVencimiento = calcularEstadoVencimiento(
-                fechaRegistroParsed, 
-                registro.tipo, 
-                registro.fechaRespuesta, 
+                fechaRegistroParsed,
+                registro.tipo,
+                registro.fechaRespuesta,
                 estado
             );
             const dependenciaSimplificada = obtenerDependenciaSimplificada(registro.dependenciaRecibe);
-            
+
             // Calcular fecha máxima de respuesta
             const plazo = PLAZOS_POR_TIPO[registro.tipo] || 10;
             const fechaMaximaRespuesta = sumarDiasHabiles(fechaRegistroParsed, plazo);
-            
+
             // Crear objeto completo
             const registroCompleto = {
                 ...registro,
@@ -925,14 +926,14 @@ function procesarDatos(jsonData) {
                 mes: fechaRegistroParsed.month() + 1, // dayjs usa meses 0-11
                 mesNombre: fechaRegistroParsed.format('MMMM')
             };
-            
+
             datosProcessados.push(registroCompleto);
-            
+
             // Contar registros del 29/08/2025
             if (fechaRegistroParsed && fechaRegistroParsed.format('DD/MM/YYYY') === '29/08/2025') {
                 registros29Agosto++;
             }
-            
+
         } catch (error) {
             if (erroresContados < maxErrores) {
                 console.error(`❌ Error procesando fila ${index + 2}:`, error.message);
@@ -941,11 +942,11 @@ function procesarDatos(jsonData) {
             }
         }
     });
-    
+
     if (erroresContados >= maxErrores) {
         console.warn(`⚠️ Se encontraron más de ${maxErrores} errores. Solo se muestran los primeros ${maxErrores}.`);
     }
-    
+
     console.log(`✅ Procesados ${datosProcessados.length} registros de ${filas.length} filas`);
     console.log(`📊 ESTADÍSTICAS DE PROCESAMIENTO:`, {
         filasAnalizadas: contadorFilas,
@@ -954,7 +955,7 @@ function procesarDatos(jsonData) {
         registros29Agosto: registros29Agosto,
         ultimasFilasVacias: filasVacias > 0 ? `Sí (${filasVacias})` : 'No'
     });
-    
+
     if (datosProcessados.length === 0) {
         throw new Error(`No se pudieron procesar datos válidos. 
         Verifique que:
@@ -962,11 +963,11 @@ function procesarDatos(jsonData) {
         2. Las fechas están en formato dd/mm/yy o dd/mm/yyyy
         3. Los datos no están vacíos`);
     }
-    
+
     // Mostrar muestra de los primeros registros procesados
     if (datosProcessados.length > 0) {
         console.log('📋 Muestra de registros procesados:', datosProcessados.slice(0, 3));
-        
+
         // Estadísticas rápidas del procesamiento
         const estadisticas = {
             total: datosProcessados.length,
@@ -976,7 +977,7 @@ function procesarDatos(jsonData) {
             tipos: [...new Set(datosProcessados.map(d => d.tipo))].length,
             porcentajeProcesado: ((datosProcessados.length / filas.length) * 100).toFixed(1)
         };
-        
+
         // Debug de estados
         const estadoConteo = {};
         const vencimientoConteo = {};
@@ -985,13 +986,13 @@ function procesarDatos(jsonData) {
                 estadoConteo[registro.estado] = 0;
             }
             estadoConteo[registro.estado]++;
-            
+
             if (!vencimientoConteo[registro.estadoVencimiento]) {
                 vencimientoConteo[registro.estadoVencimiento] = 0;
             }
             vencimientoConteo[registro.estadoVencimiento]++;
         });
-        
+
         console.log('📊 Estadísticas del archivo:', estadisticas);
         console.log('📊 Conteo por estados:');
         Object.entries(estadoConteo).forEach(([estado, count]) => {
@@ -1002,7 +1003,7 @@ function procesarDatos(jsonData) {
             console.log(`  ${venc}: ${count}`);
         });
         console.log('🏢 Dependencias procesadas:', estadisticas.dependenciasUnicas);
-        
+
         // Mostrar algunos ejemplos de registros con plazo vigente
         const vigentesEjemplos = datosProcessados
             .filter(d => d.estadoVencimiento === 'No Contestado - Plazo Vigente')
@@ -1017,12 +1018,12 @@ function procesarDatos(jsonData) {
                 diasRestantes: dayjs().diff(d.fechaMaximaRespuesta, 'day'),
                 esMismoDia: dayjs().isSame(d.fechaMaximaRespuesta, 'day')
             }));
-        
+
         if (vigentesEjemplos.length > 0) {
             console.log('📅 Ejemplos de registros con plazo vigente:', vigentesEjemplos);
         } else {
             console.log('⚠️ No se encontraron registros con plazo vigente');
-            
+
             // Buscar registros que deberían tener plazo vigente - casos críticos
             const candidatos = datosProcessados
                 .filter(d => d.estado === 'No Contestado')
@@ -1053,39 +1054,39 @@ function procesarDatos(jsonData) {
                 console.log(`     Es antes: ${reg.esAntes} | Es después: ${reg.esDespues}`);
                 console.log('     ---');
             });
-            
+
             // Buscar específicamente registros con fecha 19/09/2025
-            const hoy19Sept = datosProcessados.filter(d => 
+            const hoy19Sept = datosProcessados.filter(d =>
                 d.fechaMaximaRespuesta.format('DD/MM/YYYY') === '19/09/2025'
             );
             console.log(`🎯 Registros con fecha máxima exactamente 19/09/2025: ${hoy19Sept.length}`);
             if (hoy19Sept.length > 0) {
                 hoy19Sept.slice(0, 5).forEach((reg, i) => {
-                    console.log(`  ${i+1}. ${reg.codigo} - Estado: ${reg.estadoVencimiento}`);
+                    console.log(`  ${i + 1}. ${reg.codigo} - Estado: ${reg.estadoVencimiento}`);
                     console.log(`     Tipo: ${reg.tipo} | Plazo: ${reg.plazo} días`);
                     console.log(`     Fecha registro: ${reg.fechaRegistroParsed.format('DD/MM/YYYY')}`);
                 });
             }
-            
+
             // Buscar registros con fechas futuras (20/09/2025 en adelante)
-            const futuros = datosProcessados.filter(d => 
+            const futuros = datosProcessados.filter(d =>
                 d.fechaMaximaRespuesta.isAfter(dayjs('2025-09-19'), 'day') && d.estado === 'No Contestado'
             );
             console.log(`🔮 Registros con fecha máxima futura (después del 19/09/2025): ${futuros.length}`);
             if (futuros.length > 0) {
                 futuros.slice(0, 5).forEach((reg, i) => {
-                    console.log(`  ${i+1}. ${reg.codigo} - Vence: ${reg.fechaMaximaRespuesta.format('DD/MM/YYYY')}`);
+                    console.log(`  ${i + 1}. ${reg.codigo} - Vence: ${reg.fechaMaximaRespuesta.format('DD/MM/YYYY')}`);
                     console.log(`     Estado: ${reg.estadoVencimiento} | Tipo: ${reg.tipo}`);
                     console.log(`     Registro: ${reg.fechaRegistroParsed.format('DD/MM/YYYY')}`);
                 });
             }
-            
+
             // Debugging adicional: buscar registros de fechas específicas recientes
-            const registrosAgosto = datosProcessados.filter(r => 
+            const registrosAgosto = datosProcessados.filter(r =>
                 r.fechaRegistroParsed.format('DD/MM/YYYY') === '29/08/2025'
             );
             console.log('🔍 Registros del 29/08/2025:', registrosAgosto.length);
-            
+
             if (registrosAgosto.length > 0) {
                 console.log('📊 Análisis de registros del 29/08/2025:');
                 registrosAgosto.slice(0, 3).forEach((registro, index) => {
@@ -1099,15 +1100,15 @@ function procesarDatos(jsonData) {
                     console.log('     ---');
                 });
             }
-            
+
             // Verificar registros de septiembre que deberían estar vigentes
-            const registrosSeptiembre = datosProcessados.filter(r => 
+            const registrosSeptiembre = datosProcessados.filter(r =>
                 r.fechaRegistroParsed.month() === 8 && // Septiembre (0-indexed)
-                r.fechaRegistroParsed.date() >= 10 && 
+                r.fechaRegistroParsed.date() >= 10 &&
                 r.estado === 'No Contestado'
             );
             console.log('🔍 Registros de septiembre 2025 (día 10+):', registrosSeptiembre.length);
-            
+
             if (registrosSeptiembre.length > 0) {
                 console.log('📊 Análisis de registros recientes de septiembre:');
                 registrosSeptiembre.slice(0, 3).forEach((registro, index) => {
@@ -1119,7 +1120,7 @@ function procesarDatos(jsonData) {
                     console.log('     ---');
                 });
             }
-            
+
             // Análisis adicional: encontrar las fechas más recientes en todo el dataset
             const fechasUnicas = [...new Set(datosProcessados.map(r => r.fechaRegistroParsed.format('DD/MM/YYYY')))];
             const fechasOrdenadas = fechasUnicas
@@ -1130,19 +1131,19 @@ function procesarDatos(jsonData) {
                 }))
                 .sort((a, b) => b.dayjs.diff(a.dayjs))
                 .slice(0, 10);
-            
+
             console.log('📅 Las 10 fechas de registro más recientes en el dataset:');
             fechasOrdenadas.forEach((item, index) => {
                 console.log(`  ${index + 1}. ${item.fecha} - ${item.count} registros`);
             });
-            
+
             // Verificar específicamente registros del 29/08/2025
-            const registros29Agosto = datosProcessados.filter(r => 
-                r.fechaRegistroParsed.format('DD/MM/YYYY') === '29/08/2025' && 
+            const registros29Agosto = datosProcessados.filter(r =>
+                r.fechaRegistroParsed.format('DD/MM/YYYY') === '29/08/2025' &&
                 r.estado === 'No Contestado'
             );
             console.log(`🎯 Registros del 29/08/2025 (no contestados): ${registros29Agosto.length}`);
-            
+
             if (registros29Agosto.length > 0) {
                 console.log('📊 Análisis detallado de registros del 29/08/2025:');
                 registros29Agosto.slice(0, 3).forEach((registro, index) => {
@@ -1154,14 +1155,14 @@ function procesarDatos(jsonData) {
                     console.log('     ---');
                 });
             }
-            
+
             // Verificar si hay registros que podrían tener plazo vigente
-            const registrosRecientes = datosProcessados.filter(r => 
-                r.fechaRegistroParsed.isAfter(dayjs().subtract(30, 'day')) && 
+            const registrosRecientes = datosProcessados.filter(r =>
+                r.fechaRegistroParsed.isAfter(dayjs().subtract(30, 'day')) &&
                 r.estado === 'No Contestado'
             );
             console.log(`🔍 Registros de los últimos 30 días (no contestados): ${registrosRecientes.length}`);
-            
+
             if (registrosRecientes.length > 0) {
                 console.log('📊 Análisis de registros de los últimos 30 días:');
                 registrosRecientes.slice(0, 5).forEach((registro, index) => {
@@ -1174,7 +1175,7 @@ function procesarDatos(jsonData) {
             }
         }
     }
-    
+
     return datosProcessados;
 }
 
@@ -1188,9 +1189,9 @@ function procesarDatos(jsonData) {
 function inicializarFiltros() {
     const años = [...new Set(datosOriginales.map(d => d.año))].sort((a, b) => b - a);
     const dependencias = [...new Set(datosOriginales.map(d => d.dependenciaSimplificada))].sort();
-    
+
     console.log('🏢 Dependencias simplificadas encontradas:', dependencias);
-    
+
     // Llenar selector de años
     const yearSelect = document.getElementById('year-filter');
     yearSelect.innerHTML = '<option value="">Todos los años</option>';
@@ -1200,7 +1201,7 @@ function inicializarFiltros() {
         option.textContent = año;
         yearSelect.appendChild(option);
     });
-    
+
     // Llenar selector de dependencias
     const depSelect = document.getElementById('dependency-filter');
     depSelect.innerHTML = '<option value="">Todas las dependencias</option>';
@@ -1210,14 +1211,14 @@ function inicializarFiltros() {
         option.textContent = dep;
         depSelect.appendChild(option);
     });
-    
+
     // Llenar selector de tipos (columna F)
-    const tipos = [...new Set(datosOriginales.map(d => d.tipo).filter(tipo => 
+    const tipos = [...new Set(datosOriginales.map(d => d.tipo).filter(tipo =>
         tipo && tipo !== '' && tipo !== null && tipo !== undefined && String(tipo).trim() !== ''
     ))].sort();
-    
+
     console.log('📋 Tipos encontrados en columna F:', tipos);
-    
+
     const typesSelect = document.getElementById('typesall-filter');
     typesSelect.innerHTML = ''; // Sin opción "Todos los tipos" para selección múltiple
     tipos.forEach(tipo => {
@@ -1226,7 +1227,7 @@ function inicializarFiltros() {
         option.textContent = tipo;
         typesSelect.appendChild(option);
     });
-    
+
     // Actualizar contador inicial
     actualizarContadorTipos();
 }
@@ -1238,7 +1239,7 @@ function actualizarContadorTipos() {
     const typesSelect = document.getElementById('typesall-filter');
     const selectedCount = typesSelect.selectedOptions.length;
     const counter = document.getElementById('types-count');
-    
+
     if (selectedCount === 0) {
         counter.textContent = '0 seleccionados';
         counter.style.color = 'var(--text-secondary)';
@@ -1257,32 +1258,32 @@ function aplicarFiltros() {
     const dependencyFilter = document.getElementById('dependency-filter').value;
     const typesFilter = document.getElementById('types-filter').value;
     const radicadosFilter = document.getElementById('radicados-filter').value;
-    
+
     // Obtener valores seleccionados del filtro múltiple de tipos
     const typesAllSelect = document.getElementById('typesall-filter');
     const selectedTypes = Array.from(typesAllSelect.selectedOptions).map(option => option.value);
-    
+
     console.log('📋 Tipos seleccionados para filtrar:', selectedTypes);
-    
+
     datosFiltrados = datosOriginales.filter(registro => {
         if (yearFilter && registro.año.toString() !== yearFilter) {
             return false;
         }
-        
+
         // Filtro de rango de meses
         if (registro.mes < rangoMeses.inicio || registro.mes > rangoMeses.fin) {
             return false;
         }
-        
+
         if (dependencyFilter && registro.dependenciaSimplificada !== dependencyFilter) {
             return false;
         }
-        
+
         // Filtro de tipos múltiple (columna F) - filtrar por tipos seleccionados
         if (selectedTypes.length > 0 && !selectedTypes.includes(registro.tipo)) {
             return false;
         }
-        
+
         // Filtro de tipos - sin tipología (columna F vacía)
         if (typesFilter === 'sin-tipologia') {
             const tipo = registro.tipo;
@@ -1290,7 +1291,7 @@ function aplicarFiltros() {
                 return false;
             }
         }
-        
+
         // Filtro de radicados - sin numeración (columna A vacía) 
         if (radicadosFilter === 'sin-numeracion') {
             const codigo = registro.codigo;
@@ -1298,13 +1299,13 @@ function aplicarFiltros() {
                 return false;
             }
         }
-        
+
         return true;
     });
-    
+
     // Actualizar contador después de aplicar filtros
     actualizarContadorTipos();
-    
+
     actualizarDashboard();
 }
 
@@ -1316,28 +1317,28 @@ function limpiarFiltros() {
     document.getElementById('dependency-filter').value = '';
     document.getElementById('types-filter').value = '';
     document.getElementById('radicados-filter').value = '';
-    
+
     // Limpiar selección múltiple de tipos
     const typesSelect = document.getElementById('typesall-filter');
     Array.from(typesSelect.options).forEach(option => option.selected = false);
-    
+
     // Actualizar contador de tipos después de limpiar
     actualizarContadorTipos();
-    
+
     // Resetear range slider a valores completos
     document.getElementById('month-range-start').value = '1';
     document.getElementById('month-range-end').value = '12';
-    
+
     // Actualizar display del range slider
     const startValue = document.getElementById('month-start-value');
     const endValue = document.getElementById('month-end-value');
     const rangeFill = document.querySelector('.range-fill');
-    
+
     startValue.textContent = 'Enero';
     endValue.textContent = 'Diciembre';
     rangeFill.style.left = '0%';
     rangeFill.style.width = '100%';
-    
+
     datosFiltrados = [...datosOriginales];
     actualizarDashboard();
 }
@@ -1366,7 +1367,7 @@ function actualizarKPIs() {
     const noRequieren = datosFiltrados.filter(d => d.estado === 'No Requiere Respuesta').length;
     const vencidos = datosFiltrados.filter(d => d.estadoVencimiento === 'No Contestado - Plazo Vencido').length;
     const vigentes = datosFiltrados.filter(d => d.estadoVencimiento === 'No Contestado - Plazo Vigente').length;
-    
+
     // Actualizar valores con animación
     animarValor('total-radicados', total);
     animarValor('total-contestados', contestados);
@@ -1382,20 +1383,20 @@ function actualizarKPIs() {
 function animarValor(elementId, valorFinal) {
     const elemento = document.getElementById(elementId);
     const valorActual = parseInt(elemento.textContent) || 0;
-    
+
     elemento.classList.add('updating');
-    
+
     // Animación numérica
     let valorTemporal = valorActual;
     const diferencia = valorFinal - valorActual;
     const pasos = 20;
     const incremento = diferencia / pasos;
-    
+
     let contador = 0;
     const interval = setInterval(() => {
         contador++;
         valorTemporal += incremento;
-        
+
         if (contador >= pasos) {
             elemento.textContent = valorFinal.toLocaleString();
             elemento.classList.remove('updating');
@@ -1411,7 +1412,7 @@ function animarValor(elementId, valorFinal) {
  */
 function actualizarAnalisisTipos() {
     const tipoConteo = {};
-    
+
     // Contar por tipo
     datosFiltrados.forEach(registro => {
         if (!tipoConteo[registro.tipo]) {
@@ -1422,9 +1423,9 @@ function actualizarAnalisisTipos() {
                 noRequieren: 0
             };
         }
-        
+
         tipoConteo[registro.tipo].total++;
-        
+
         switch (registro.estado) {
             case 'Contestado':
                 tipoConteo[registro.tipo].contestados++;
@@ -1437,21 +1438,21 @@ function actualizarAnalisisTipos() {
                 break;
         }
     });
-    
+
     // Obtener top 5
     const top5 = Object.entries(tipoConteo)
-        .sort(([,a], [,b]) => b.total - a.total)
+        .sort(([, a], [, b]) => b.total - a.total)
         .slice(0, 5);
-    
+
     // Renderizar
     const container = document.getElementById('types-grid');
     container.innerHTML = '';
-    
+
     top5.forEach(([tipo, datos], index) => {
         const card = document.createElement('div');
         card.className = 'type-card';
         card.style.animationDelay = `${index * 0.1}s`;
-        
+
         card.innerHTML = `
             <div class="type-header">
                 <span class="type-name">${tipo}</span>
@@ -1472,7 +1473,7 @@ function actualizarAnalisisTipos() {
                 </div>
             </div>
         `;
-        
+
         container.appendChild(card);
     });
 }
@@ -1482,7 +1483,7 @@ function actualizarAnalisisTipos() {
  */
 function actualizarGraficos() {
     console.log('🚀🚀🚀 INICIANDO ACTUALIZACIÓN DE GRÁFICOS 🚀🚀🚀');
-    
+
     console.log('📊 1/4 Actualizando gráfico No Contestados...');
     try {
         actualizarGraficoNoContestados();
@@ -1490,7 +1491,7 @@ function actualizarGraficos() {
     } catch (error) {
         console.error('❌ Error en gráfico No Contestados:', error);
     }
-    
+
     console.log('📊 2/4 Actualizando gráfico Vencidos...');
     try {
         actualizarGraficoVencidos();
@@ -1498,7 +1499,7 @@ function actualizarGraficos() {
     } catch (error) {
         console.error('❌ Error en gráfico Vencidos:', error);
     }
-    
+
     console.log('📊 3/4 Actualizando gráfico Treemap...');
     try {
         actualizarGraficoTreemap();
@@ -1506,7 +1507,7 @@ function actualizarGraficos() {
     } catch (error) {
         console.error('❌ Error en gráfico Treemap:', error);
     }
-    
+
     console.log('📊 4/4 Actualizando gráfico de Tendencias...');
     try {
         actualizarGraficoTendencia();
@@ -1514,7 +1515,7 @@ function actualizarGraficos() {
     } catch (error) {
         console.error('❌ Error en gráfico Tendencias:', error);
     }
-    
+
     console.log('✅✅✅ GRÁFICOS ACTUALIZADOS COMPLETAMENTE ✅✅✅');
 }
 
@@ -1524,7 +1525,7 @@ function actualizarGraficos() {
 function getResponsiveChartConfig() {
     const isMobile = window.innerWidth < 768;
     const isSmallMobile = window.innerWidth < 480;
-    
+
     return {
         responsive: true,
         maintainAspectRatio: false,
@@ -1546,7 +1547,7 @@ function getResponsiveChartConfig() {
 function getResponsiveScaleConfig() {
     const isMobile = window.innerWidth < 768;
     const isSmallMobile = window.innerWidth < 480;
-    
+
     return {
         ticks: {
             color: '#7d8590',
@@ -1563,34 +1564,34 @@ function getResponsiveScaleConfig() {
  */
 function actualizarGraficoNoContestados() {
     console.log('🚀 INICIANDO actualizarGraficoNoContestados()');
-    
+
     // Verificar que Chart.js esté disponible
     if (!window.Chart) {
         console.error('❌ Chart.js no está disponible');
         return;
     }
-    
+
     console.log('✅ Chart.js está disponible');
-    
+
     const ctx = document.getElementById('chartNoContestados');
     if (!ctx) {
         console.error('❌ Elemento chartNoContestados no encontrado');
         return;
     }
-    
+
     console.log('✅ Elemento chartNoContestados encontrado:', ctx);
-    
+
     try {
         const ctxCanvas = ctx.getContext('2d');
         console.log('✅ Contexto 2d obtenido:', ctxCanvas);
-        
+
         console.log('🔄 Preparando datos para gráfica No Contestados...');
         console.log('   - datosFiltrados disponibles:', datosFiltrados.length);
-        
+
         // Preparar datos REALES - Filtrar por fecha de respuesta VACÍA (columna K)
         const dependenciaConteo = {};
         console.log('🎯 Buscando registros SIN fecha de respuesta (columna K vacía)');
-        
+
         const registrosFiltrados = datosFiltrados.filter(d => {
             // Verificar si la fecha de respuesta está vacía (columna J)
             const fechaRespuesta = d.fechaRespuesta;
@@ -1602,107 +1603,107 @@ function actualizarGraficoNoContestados() {
             return fechaStr === '' || fechaStr === '-' || fechaStr.toLowerCase() === 'null';
         });
         console.log('📈 Registros SIN fecha de respuesta encontrados:', registrosFiltrados.length);
-        
+
         registrosFiltrados.forEach(registro => {
-                if (!dependenciaConteo[registro.dependenciaSimplificada]) {
-                    dependenciaConteo[registro.dependenciaSimplificada] = 0;
-                }
-                dependenciaConteo[registro.dependenciaSimplificada]++;
-            });
-        
+            if (!dependenciaConteo[registro.dependenciaSimplificada]) {
+                dependenciaConteo[registro.dependenciaSimplificada] = 0;
+            }
+            dependenciaConteo[registro.dependenciaSimplificada]++;
+        });
+
         console.log('📊 Dependencias con datos:', Object.keys(dependenciaConteo).length);
-        
+
         const datos = Object.entries(dependenciaConteo)
-            .sort(([,a], [,b]) => b - a)
+            .sort(([, a], [, b]) => b - a)
             .slice(0, 15); // Top 15
-        
+
         const labels = datos.map(([dep]) => dep);
-        const values = datos.map(([,count]) => count);
-        
+        const values = datos.map(([, count]) => count);
+
         console.log('📊 Usando datos REALES:', labels.length, 'dependencias');
         console.log('   - Top 3:', labels.slice(0, 3));
         console.log('   - Valores:', values.slice(0, 3));
-    
+
         // Destruir gráfico anterior si existe
         if (chartNoContestados) {
             console.log('🔄 Destruyendo gráfico anterior...');
             chartNoContestados.destroy();
         }
-    
-    // Crear nuevo gráfico - CONFIGURACIÓN BÁSICA SIN RESPONSIVE
-    console.log('📊 Creando gráfico No Contestados, datos:', values.length, 'elementos');
-    console.log('   - Labels:', labels.slice(0, 3), '...');
-    console.log('   - Values:', values.slice(0, 3), '...');
-    
-    chartNoContestados = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'No Contestados',
-                data: values,
-                backgroundColor: 'rgba(210, 153, 34, 0.8)',
-                borderColor: 'rgb(210, 153, 34)',
-                borderWidth: 2,
-                borderRadius: 4,
-                borderSkipped: false
-            }]
-        },
-        options: {
-            indexAxis: 'y',
-            responsive: true,
-            maintainAspectRatio: false,
-            layout: {
-                padding: {
-                    left: 20,
-                    right: 10,
-                    top: 10,
-                    bottom: 10
-                }
+
+        // Crear nuevo gráfico - CONFIGURACIÓN BÁSICA SIN RESPONSIVE
+        console.log('📊 Creando gráfico No Contestados, datos:', values.length, 'elementos');
+        console.log('   - Labels:', labels.slice(0, 3), '...');
+        console.log('   - Values:', values.slice(0, 3), '...');
+
+        chartNoContestados = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'No Contestados',
+                    data: values,
+                    backgroundColor: 'rgba(210, 153, 34, 0.8)',
+                    borderColor: 'rgb(210, 153, 34)',
+                    borderWidth: 2,
+                    borderRadius: 4,
+                    borderSkipped: false
+                }]
             },
-            plugins: {
-                legend: {
-                    display: false
-                },
-                tooltip: {
-                    backgroundColor: 'rgba(33, 37, 45, 0.95)',
-                    titleColor: '#f0f6fc',
-                    bodyColor: '#f0f6fc',
-                    borderColor: '#58a6ff',
-                    borderWidth: 1,
-                    cornerRadius: 8
-                }
-            },
-            scales: {
-                x: {
-                    beginAtZero: true,
-                    grid: {
-                        color: 'rgba(139, 148, 158, 0.1)'
-                    },
-                    ticks: {
-                        color: '#8b949e'
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                layout: {
+                    padding: {
+                        left: 20,
+                        right: 10,
+                        top: 10,
+                        bottom: 10
                     }
                 },
-                y: {
-                    grid: {
+                plugins: {
+                    legend: {
                         display: false
                     },
-                    ticks: {
-                        color: '#8b949e',
-                        maxTicksLimit: 15,
-                        font: {
-                            size: 11
+                    tooltip: {
+                        backgroundColor: 'rgba(33, 37, 45, 0.95)',
+                        titleColor: '#f0f6fc',
+                        bodyColor: '#f0f6fc',
+                        borderColor: '#58a6ff',
+                        borderWidth: 1,
+                        cornerRadius: 8
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(139, 148, 158, 0.1)'
                         },
-                        // Asegurar que las etiquetas se alineen correctamente
-                        align: 'end',
-                        crossAlign: 'near'
+                        ticks: {
+                            color: '#8b949e'
+                        }
+                    },
+                    y: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            color: '#8b949e',
+                            maxTicksLimit: 15,
+                            font: {
+                                size: 11
+                            },
+                            // Asegurar que las etiquetas se alineen correctamente
+                            align: 'end',
+                            crossAlign: 'near'
+                        }
                     }
                 }
             }
-        }
-    });
-    
-    console.log('✅ Gráfico No Contestados creado exitosamente');
+        });
+
+        console.log('✅ Gráfico No Contestados creado exitosamente');
     } catch (error) {
         console.error('❌ Error creando gráfico No Contestados:', error);
     }
@@ -1713,120 +1714,120 @@ function actualizarGraficoNoContestados() {
  */
 function actualizarGraficoVencidos() {
     console.log('🚀 INICIANDO actualizarGraficoVencidos()');
-    
+
     // Verificar que Chart.js esté disponible
     if (!window.Chart) {
         console.error('❌ Chart.js no está disponible');
         return;
     }
-    
+
     const ctx = document.getElementById('chartVencidos');
     if (!ctx) {
         console.error('❌ Elemento chartVencidos no encontrado');
         return;
     }
-    
+
     try {
         const ctxCanvas = ctx.getContext('2d');
-        
+
         console.log('🔄 Preparando datos para gráfica Vencidos...');
         console.log('   - datosFiltrados disponibles:', datosFiltrados.length);
-    
-    // Preparar datos
-    const dependenciaConteo = {};
-    datosFiltrados
-        .filter(d => d.estadoVencimiento === 'No Contestado - Plazo Vencido')
-        .forEach(registro => {
-            if (!dependenciaConteo[registro.dependenciaSimplificada]) {
-                dependenciaConteo[registro.dependenciaSimplificada] = 0;
-            }
-            dependenciaConteo[registro.dependenciaSimplificada]++;
-        });
-    
-    const datos = Object.entries(dependenciaConteo)
-        .sort(([,a], [,b]) => b - a)
-        .slice(0, 15); // Top 15
-    
-    const labels = datos.map(([dep]) => dep);
-    const values = datos.map(([,count]) => count);
-    
-    // Destruir gráfico anterior si existe
-    if (chartVencidos) {
-        chartVencidos.destroy();
-    }
-    
-    // Crear nuevo gráfico - CONFIGURACIÓN BÁSICA SIN RESPONSIVE
-    console.log('📊 Creando gráfico Vencidos, datos:', values.length, 'elementos');
-    
-    chartVencidos = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'Vencidos',
-                data: values,
-                backgroundColor: 'rgba(248, 81, 73, 0.8)',
-                borderColor: 'rgb(248, 81, 73)',
-                borderWidth: 2,
-                borderRadius: 6,
-                borderSkipped: false
-            }]
-        },
-        options: {
-            indexAxis: 'y',
-            responsive: true,
-            maintainAspectRatio: false,
-            layout: {
-                padding: {
-                    left: 20,
-                    right: 10,
-                    top: 10,
-                    bottom: 10
+
+        // Preparar datos
+        const dependenciaConteo = {};
+        datosFiltrados
+            .filter(d => d.estadoVencimiento === 'No Contestado - Plazo Vencido')
+            .forEach(registro => {
+                if (!dependenciaConteo[registro.dependenciaSimplificada]) {
+                    dependenciaConteo[registro.dependenciaSimplificada] = 0;
                 }
+                dependenciaConteo[registro.dependenciaSimplificada]++;
+            });
+
+        const datos = Object.entries(dependenciaConteo)
+            .sort(([, a], [, b]) => b - a)
+            .slice(0, 15); // Top 15
+
+        const labels = datos.map(([dep]) => dep);
+        const values = datos.map(([, count]) => count);
+
+        // Destruir gráfico anterior si existe
+        if (chartVencidos) {
+            chartVencidos.destroy();
+        }
+
+        // Crear nuevo gráfico - CONFIGURACIÓN BÁSICA SIN RESPONSIVE
+        console.log('📊 Creando gráfico Vencidos, datos:', values.length, 'elementos');
+
+        chartVencidos = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Vencidos',
+                    data: values,
+                    backgroundColor: 'rgba(248, 81, 73, 0.8)',
+                    borderColor: 'rgb(248, 81, 73)',
+                    borderWidth: 2,
+                    borderRadius: 6,
+                    borderSkipped: false
+                }]
             },
-            plugins: {
-                legend: {
-                    display: false
-                },
-                tooltip: {
-                    backgroundColor: 'rgba(33, 37, 45, 0.95)',
-                    titleColor: '#f0f6fc',
-                    bodyColor: '#f0f6fc',
-                    borderColor: '#58a6ff',
-                    borderWidth: 1,
-                    cornerRadius: 8
-                }
-            },
-            scales: {
-                x: {
-                    beginAtZero: true,
-                    grid: {
-                        color: 'rgba(139, 148, 158, 0.1)'
-                    },
-                    ticks: {
-                        color: '#7d8590'
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                layout: {
+                    padding: {
+                        left: 20,
+                        right: 10,
+                        top: 10,
+                        bottom: 10
                     }
                 },
-                y: {
-                    grid: {
+                plugins: {
+                    legend: {
                         display: false
                     },
-                    ticks: {
-                        color: '#7d8590',
-                        maxTicksLimit: 15,
-                        font: {
-                            size: 11
+                    tooltip: {
+                        backgroundColor: 'rgba(33, 37, 45, 0.95)',
+                        titleColor: '#f0f6fc',
+                        bodyColor: '#f0f6fc',
+                        borderColor: '#58a6ff',
+                        borderWidth: 1,
+                        cornerRadius: 8
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(139, 148, 158, 0.1)'
                         },
-                        // Asegurar que las etiquetas se alineen correctamente
-                        align: 'end',
-                        crossAlign: 'near'
+                        ticks: {
+                            color: '#7d8590'
+                        }
+                    },
+                    y: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            color: '#7d8590',
+                            maxTicksLimit: 15,
+                            font: {
+                                size: 11
+                            },
+                            // Asegurar que las etiquetas se alineen correctamente
+                            align: 'end',
+                            crossAlign: 'near'
+                        }
                     }
                 }
             }
-        }
-    });
-    
-    console.log('✅ Gráfico Vencidos creado exitosamente');
+        });
+
+        console.log('✅ Gráfico Vencidos creado exitosamente');
     } catch (error) {
         console.error('❌ Error creando gráfico Vencidos:', error);
     }
@@ -1837,111 +1838,111 @@ function actualizarGraficoVencidos() {
  */
 function actualizarGraficoTreemap() {
     console.log('🚀 INICIANDO actualizarGraficoTreemap()');
-    
+
     // Verificar que Chart.js esté disponible
     if (!window.Chart) {
         console.error('❌ Chart.js no está disponible');
         return;
     }
-    
+
     const ctx = document.getElementById('chartTreemap');
     if (!ctx) {
         console.error('❌ Elemento chartTreemap no encontrado');
         return;
     }
-    
+
     try {
         const ctxCanvas = ctx.getContext('2d');
-        
+
         console.log('🔄 Preparando datos para gráfica Treemap...');
         console.log('   - datosFiltrados disponibles:', datosFiltrados.length);
-    
-    // Preparar datos
-    const dependenciaConteo = {};
-    datosFiltrados.forEach(registro => {
-        if (!dependenciaConteo[registro.dependenciaSimplificada]) {
-            dependenciaConteo[registro.dependenciaSimplificada] = 0;
+
+        // Preparar datos
+        const dependenciaConteo = {};
+        datosFiltrados.forEach(registro => {
+            if (!dependenciaConteo[registro.dependenciaSimplificada]) {
+                dependenciaConteo[registro.dependenciaSimplificada] = 0;
+            }
+            dependenciaConteo[registro.dependenciaSimplificada]++;
+        });
+
+        // Colores dinámicos
+        const colores = [
+            '#58a6ff', '#3fb950', '#f85149', '#d29922', '#a5a5ff', '#39d0d8',
+            '#ff7ce7', '#ffa657', '#7c3aed', '#ef4444', '#06b6d4', '#84cc16'
+        ];
+
+        // Destruir gráfico anterior si existe
+        if (chartTreemap) {
+            chartTreemap.destroy();
         }
-        dependenciaConteo[registro.dependenciaSimplificada]++;
-    });
-    
-    // Colores dinámicos
-    const colores = [
-        '#58a6ff', '#3fb950', '#f85149', '#d29922', '#a5a5ff', '#39d0d8',
-        '#ff7ce7', '#ffa657', '#7c3aed', '#ef4444', '#06b6d4', '#84cc16'
-    ];
-    
-    // Destruir gráfico anterior si existe
-    if (chartTreemap) {
-        chartTreemap.destroy();
-    }
-    
-    // Crear gráfico de barras como alternativa más estable - CONFIGURACIÓN BÁSICA
-    console.log('📊 Creando gráfico Treemap/Dependencias');
-    
-    const datos = Object.entries(dependenciaConteo)
-        .sort(([,a], [,b]) => b - a)
-        .slice(0, 12); // Top 12 dependencias
-    
-    const labels = datos.map(([dep]) => dep);
-    const values = datos.map(([,count]) => count);
-    const backgroundColors = labels.map((_, index) => colores[index % colores.length] + '80');
-    const borderColors = labels.map((_, index) => colores[index % colores.length]);
-    
-    chartTreemap = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'Total Radicados por Dependencia',
-                data: values,
-                backgroundColor: backgroundColors,
-                borderColor: borderColors,
-                borderWidth: 2,
-                borderRadius: 8,
-                borderSkipped: false
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: false
-                },
-                tooltip: {
-                    backgroundColor: 'rgba(33, 37, 45, 0.95)',
-                    titleColor: '#f0f6fc',
-                    bodyColor: '#f0f6fc',
-                    borderColor: '#58a6ff',
-                    borderWidth: 1,
-                    cornerRadius: 8
-                }
+
+        // Crear gráfico de barras como alternativa más estable - CONFIGURACIÓN BÁSICA
+        console.log('📊 Creando gráfico Treemap/Dependencias');
+
+        const datos = Object.entries(dependenciaConteo)
+            .sort(([, a], [, b]) => b - a)
+            .slice(0, 12); // Top 12 dependencias
+
+        const labels = datos.map(([dep]) => dep);
+        const values = datos.map(([, count]) => count);
+        const backgroundColors = labels.map((_, index) => colores[index % colores.length] + '80');
+        const borderColors = labels.map((_, index) => colores[index % colores.length]);
+
+        chartTreemap = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Total Radicados por Dependencia',
+                    data: values,
+                    backgroundColor: backgroundColors,
+                    borderColor: borderColors,
+                    borderWidth: 2,
+                    borderRadius: 8,
+                    borderSkipped: false
+                }]
             },
-            scales: {
-                x: {
-                    ticks: {
-                        color: '#7d8590',
-                        maxRotation: 45
-                    },
-                    grid: {
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
                         display: false
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(33, 37, 45, 0.95)',
+                        titleColor: '#f0f6fc',
+                        bodyColor: '#f0f6fc',
+                        borderColor: '#58a6ff',
+                        borderWidth: 1,
+                        cornerRadius: 8
                     }
                 },
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        color: '#7d8590'
+                scales: {
+                    x: {
+                        ticks: {
+                            color: '#7d8590',
+                            maxRotation: 45
+                        },
+                        grid: {
+                            display: false
+                        }
                     },
-                    grid: {
-                        color: 'rgba(139, 148, 158, 0.1)'
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: '#7d8590'
+                        },
+                        grid: {
+                            color: 'rgba(139, 148, 158, 0.1)'
+                        }
                     }
                 }
             }
-        }
-    });
-    
-    console.log('✅ Gráfico Treemap creado exitosamente');
+        });
+
+        console.log('✅ Gráfico Treemap creado exitosamente');
     } catch (error) {
         console.error('❌ Error creando gráfico Treemap:', error);
     }
@@ -1957,46 +1958,46 @@ let chartTendencia = null;
  */
 function actualizarGraficoTendencia() {
     console.log('🚀 INICIANDO actualizarGraficoTendencia()');
-    
+
     if (!Chart) {
         console.error('❌ Chart.js no está disponible');
         return;
     }
-    
+
     console.log('✅ Chart.js está disponible');
-    
+
     const ctx = document.getElementById('chartTendencia');
     if (!ctx) {
         console.error('❌ Elemento chartTendencia no encontrado');
         return;
     }
-    
+
     console.log('✅ Elemento chartTendencia encontrado:', ctx);
-    
+
     try {
         console.log('🔄 Preparando datos para gráfica de tendencias...');
         console.log('   - datosFiltrados disponibles:', datosFiltrados.length);
-        
+
         // Agrupar datos por mes y medio de recepción
         const datosPorMesYMedio = {};
-        
+
         datosFiltrados.forEach(registro => {
             if (!registro.fechaRegistroParsed || !registro.medioRecepcion) return;
-            
+
             const mesAnio = registro.fechaRegistroParsed.format('YYYY-MM');
             const medio = registro.medioRecepcion;
-            
+
             if (!datosPorMesYMedio[mesAnio]) {
                 datosPorMesYMedio[mesAnio] = {};
             }
-            
+
             if (!datosPorMesYMedio[mesAnio][medio]) {
                 datosPorMesYMedio[mesAnio][medio] = 0;
             }
-            
+
             datosPorMesYMedio[mesAnio][medio]++;
         });
-        
+
         // Obtener medios más utilizados (top 5)
         const mediosConteo = {};
         datosFiltrados.forEach(registro => {
@@ -2004,15 +2005,15 @@ function actualizarGraficoTendencia() {
                 mediosConteo[registro.medioRecepcion] = (mediosConteo[registro.medioRecepcion] || 0) + 1;
             }
         });
-        
+
         const topMedios = Object.entries(mediosConteo)
-            .sort(([,a], [,b]) => b - a)
+            .sort(([, a], [, b]) => b - a)
             .slice(0, 5)
             .map(([medio]) => medio);
-        
+
         // Obtener meses ordenados
         const mesesOrdenados = Object.keys(datosPorMesYMedio).sort();
-        
+
         // Preparar datasets para cada medio
         const colors = [
             'rgb(88, 166, 255)',    // Azul
@@ -2021,12 +2022,12 @@ function actualizarGraficoTendencia() {
             'rgb(210, 153, 34)',    // Amarillo
             'rgb(165, 165, 255)'    // Púrpura
         ];
-        
+
         const datasets = topMedios.map((medio, index) => {
             const data = mesesOrdenados.map(mes => {
                 return datosPorMesYMedio[mes][medio] || 0;
             });
-            
+
             return {
                 label: medio,
                 data: data,
@@ -2042,25 +2043,25 @@ function actualizarGraficoTendencia() {
                 pointBorderWidth: 2
             };
         });
-        
+
         // Formatear etiquetas de meses para mostrar
         const labels = mesesOrdenados.map(mes => {
             const [year, month] = mes.split('-');
             const fecha = dayjs(`${year}-${month}-01`);
             return fecha.format('MMM YYYY');
         });
-        
+
         console.log('📊 Datos preparados:', topMedios.length, 'medios,', mesesOrdenados.length, 'meses');
-        
+
         // Destruir gráfico anterior si existe
         if (chartTendencia) {
             console.log('🔄 Destruyendo gráfico anterior...');
             chartTendencia.destroy();
         }
-        
+
         // Crear nuevo gráfico de líneas
         console.log('📊 Creando gráfico de tendencias...');
-        
+
         chartTendencia = new Chart(ctx, {
             type: 'line',
             data: {
@@ -2136,7 +2137,7 @@ function actualizarGraficoTendencia() {
                 }
             }
         });
-        
+
         console.log('✅ Gráfico de tendencias creado exitosamente');
     } catch (error) {
         console.error('❌ Error creando gráfico de tendencias:', error);
@@ -2165,16 +2166,16 @@ function inicializarRangeSlider() {
     const startValue = document.getElementById('month-start-value');
     const endValue = document.getElementById('month-end-value');
     const rangeFill = document.querySelector('.range-fill');
-    
+
     const monthNames = [
         'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
         'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
     ];
-    
+
     function updateRangeSlider() {
         let startVal = parseInt(startSlider.value);
         let endVal = parseInt(endSlider.value);
-        
+
         // Asegurar que el inicio no sea mayor que el final
         if (startVal > endVal) {
             if (this === startSlider) {
@@ -2185,26 +2186,26 @@ function inicializarRangeSlider() {
                 startVal = endVal;
             }
         }
-        
+
         // Actualizar textos
         startValue.textContent = monthNames[startVal - 1];
         endValue.textContent = monthNames[endVal - 1];
-        
+
         // Actualizar barra de rango visual
         const percent1 = ((startVal - 1) / 11) * 100;
         const percent2 = ((endVal - 1) / 11) * 100;
-        
+
         rangeFill.style.left = percent1 + '%';
         rangeFill.style.width = (percent2 - percent1) + '%';
-        
+
         // Aplicar filtros
         aplicarFiltros();
     }
-    
+
     // Event listeners
     startSlider.addEventListener('input', updateRangeSlider);
     endSlider.addEventListener('input', updateRangeSlider);
-    
+
     // Inicialización inicial
     updateRangeSlider();
 }
@@ -2228,17 +2229,17 @@ function obtenerRangoMeses() {
 function openDetailsModal() {
     currentPage = 1;
     tableSearchTerm = '';
-    
+
     const modal = document.getElementById('details-modal');
     modal.style.display = 'flex'; // Mostrar como flex para centrar contenido
-    
+
     updateDetailsModal();
-    
+
     // Event listeners para el modal
     document.getElementById('table-search').addEventListener('input', handleTableSearch);
     document.getElementById('prev-page').addEventListener('click', () => changePage(-1));
     document.getElementById('next-page').addEventListener('click', () => changePage(1));
-    
+
     // Event listeners para ordenamiento
     document.querySelectorAll('.sortable').forEach(header => {
         header.addEventListener('click', () => sortTable(header.dataset.column));
@@ -2251,7 +2252,7 @@ function openDetailsModal() {
 function closeDetailsModal() {
     const modal = document.getElementById('details-modal');
     modal.style.display = 'none';
-    
+
     // Limpiar event listeners
     document.getElementById('table-search').removeEventListener('input', handleTableSearch);
 }
@@ -2261,28 +2262,28 @@ function closeDetailsModal() {
  */
 function updateDetailsModal() {
     // FILTRO AUTOMÁTICO: Solo mostrar registros NO CONTESTADOS (Plazo Vigente y Plazo Vencido)
-    let filteredData = [...datosFiltrados].filter(item => 
-        item.estado === 'No Contestado' && 
-        (item.estadoVencimiento === 'No Contestado - Plazo Vigente' || 
-         item.estadoVencimiento === 'No Contestado - Plazo Vencido')
+    let filteredData = [...datosFiltrados].filter(item =>
+        item.estado === 'No Contestado' &&
+        (item.estadoVencimiento === 'No Contestado - Plazo Vigente' ||
+            item.estadoVencimiento === 'No Contestado - Plazo Vencido')
     );
-    
+
     // Aplicar búsqueda si existe
     if (tableSearchTerm) {
-        filteredData = filteredData.filter(item => 
+        filteredData = filteredData.filter(item =>
             item.codigo.toLowerCase().includes(tableSearchTerm.toLowerCase()) ||
             item.asunto.toLowerCase().includes(tableSearchTerm.toLowerCase()) ||
             item.dependenciaSimplificada.toLowerCase().includes(tableSearchTerm.toLowerCase()) ||
             (item.fechaRegistroParsed && item.fechaRegistroParsed.format('DD/MM/YYYY').includes(tableSearchTerm))
         );
     }
-    
+
     // Aplicar ordenamiento
     if (sortColumn) {
         filteredData.sort((a, b) => {
             let aValue = a[sortColumn];
             let bValue = b[sortColumn];
-            
+
             // Manejo especial para fechas - usar fechaRegistroParsed directamente
             if (sortColumn === 'fechaRegistro') {
                 aValue = a.fechaRegistroParsed;
@@ -2293,26 +2294,26 @@ function updateDetailsModal() {
                     bValue = bValue.toDate();
                 }
             }
-            
+
             if (aValue < bValue) return sortDirection === 'asc' ? -1 : 1;
             if (aValue > bValue) return sortDirection === 'asc' ? 1 : -1;
             return 0;
         });
     }
-    
+
     // Actualizar estadísticas del resumen
     updateDetailsSummary(filteredData);
-    
+
     // Calcular paginación
     const totalItems = filteredData.length;
     const totalPages = Math.ceil(totalItems / itemsPerPage);
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     const pageData = filteredData.slice(startIndex, endIndex);
-    
+
     // Actualizar tabla
     updateDetailsTable(pageData);
-    
+
     // Actualizar controles de paginación
     updatePagination(totalPages, totalItems, startIndex, Math.min(endIndex, totalItems));
 }
@@ -2323,11 +2324,11 @@ function updateDetailsModal() {
 function updateDetailsSummary(data) {
     const totalFiltered = data.length;
     const dependencies = [...new Set(data.map(d => d.dependenciaSimplificada))].length;
-    
+
     // Contar registros por vencimiento
     const vigentes = data.filter(d => d.estadoVencimiento === 'No Contestado - Plazo Vigente').length;
     const vencidos = data.filter(d => d.estadoVencimiento === 'No Contestado - Plazo Vencido').length;
-    
+
     // Calcular rango de fechas - CORREGIDO: ordenamiento cronológico
     let dateRange = '-';
     if (data.length > 0) {
@@ -2335,14 +2336,14 @@ function updateDetailsSummary(data) {
             .map(d => d.fechaRegistroParsed)
             .filter(Boolean)
             .sort((a, b) => a.toDate() - b.toDate()); // Ordenamiento cronológico correcto
-            
+
         if (fechasValidas.length > 0) {
             const minDate = fechasValidas[0].format('DD/MM/YYYY');
             const maxDate = fechasValidas[fechasValidas.length - 1].format('DD/MM/YYYY');
             dateRange = minDate === maxDate ? minDate : `${minDate} - ${maxDate}`;
         }
     }
-    
+
     document.getElementById('total-filtered').textContent = totalFiltered.toLocaleString();
     document.getElementById('vigentes-count').textContent = vigentes.toLocaleString();
     document.getElementById('vencidos-count').textContent = vencidos.toLocaleString();
@@ -2356,7 +2357,7 @@ function updateDetailsSummary(data) {
 function updateDetailsTable(data) {
     const tbody = document.getElementById('details-table-body');
     tbody.innerHTML = '';
-    
+
     if (data.length === 0) {
         tbody.innerHTML = `
             <tr>
@@ -2368,14 +2369,14 @@ function updateDetailsTable(data) {
         `;
         return;
     }
-    
+
     data.forEach(item => {
         const row = document.createElement('tr');
-        
+
         // Determinar badge de estado
         let statusClass = 'status-no-requiere';
         let statusText = item.estadoVencimiento || 'N/A';
-        
+
         if (statusText.includes('Contestado dentro del Término')) {
             statusClass = 'status-contestado';
             statusText = 'Contestado';
@@ -2389,7 +2390,7 @@ function updateDetailsTable(data) {
             statusClass = 'status-no-requiere';
             statusText = 'No Aplica';
         }
-        
+
         row.innerHTML = `
             <td>${item.codigo}</td>
             <td class="asunto-cell" title="${item.asunto}">${item.asunto}</td>
@@ -2397,7 +2398,7 @@ function updateDetailsTable(data) {
             <td>${item.dependenciaSimplificada}</td>
             <td><span class="status-badge ${statusClass}">${statusText}</span></td>
         `;
-        
+
         tbody.appendChild(row);
     });
 }
@@ -2410,14 +2411,14 @@ function updatePagination(totalPages, totalItems, startIndex, endIndex) {
     const pageNumbers = document.getElementById('page-numbers');
     const prevBtn = document.getElementById('prev-page');
     const nextBtn = document.getElementById('next-page');
-    
+
     // Actualizar texto de paginación
     paginationText.textContent = `Mostrando ${startIndex + 1}-${endIndex} de ${totalItems.toLocaleString()} registros`;
-    
+
     // Actualizar botones de navegación
     prevBtn.disabled = currentPage <= 1;
     nextBtn.disabled = currentPage >= totalPages;
-    
+
     // Generar números de página
     pageNumbers.innerHTML = '';
     if (totalPages <= 7) {
@@ -2428,22 +2429,22 @@ function updatePagination(totalPages, totalItems, startIndex, endIndex) {
     } else {
         // Mostrar con elipsis
         createPageNumber(1);
-        
+
         if (currentPage > 3) {
             pageNumbers.appendChild(createEllipsis());
         }
-        
+
         const start = Math.max(2, currentPage - 1);
         const end = Math.min(totalPages - 1, currentPage + 1);
-        
+
         for (let i = start; i <= end; i++) {
             createPageNumber(i);
         }
-        
+
         if (currentPage < totalPages - 2) {
             pageNumbers.appendChild(createEllipsis());
         }
-        
+
         createPageNumber(totalPages);
     }
 }
@@ -2485,7 +2486,7 @@ function goToPage(page) {
 function changePage(direction) {
     const newPage = currentPage + direction;
     const totalPages = Math.ceil(datosFiltrados.length / itemsPerPage);
-    
+
     if (newPage >= 1 && newPage <= totalPages) {
         currentPage = newPage;
         updateDetailsModal();
@@ -2511,7 +2512,7 @@ function sortTable(column) {
         sortColumn = column;
         sortDirection = 'asc';
     }
-    
+
     // Actualizar iconos de ordenamiento
     document.querySelectorAll('.sortable').forEach(header => {
         header.classList.remove('sort-asc', 'sort-desc');
@@ -2519,7 +2520,7 @@ function sortTable(column) {
             header.classList.add(`sort-${sortDirection}`);
         }
     });
-    
+
     currentPage = 1;
     updateDetailsModal();
 }
@@ -2530,28 +2531,28 @@ function sortTable(column) {
 function exportToExcel() {
     try {
         // FILTRO AUTOMÁTICO: Solo exportar registros NO CONTESTADOS (Plazo Vigente y Plazo Vencido)
-        let filteredData = [...datosFiltrados].filter(item => 
-            item.estado === 'No Contestado' && 
-            (item.estadoVencimiento === 'No Contestado - Plazo Vigente' || 
-             item.estadoVencimiento === 'No Contestado - Plazo Vencido')
+        let filteredData = [...datosFiltrados].filter(item =>
+            item.estado === 'No Contestado' &&
+            (item.estadoVencimiento === 'No Contestado - Plazo Vigente' ||
+                item.estadoVencimiento === 'No Contestado - Plazo Vencido')
         );
-        
+
         // Aplicar búsqueda si existe
         if (tableSearchTerm) {
-            filteredData = filteredData.filter(item => 
+            filteredData = filteredData.filter(item =>
                 item.codigo.toLowerCase().includes(tableSearchTerm.toLowerCase()) ||
                 item.asunto.toLowerCase().includes(tableSearchTerm.toLowerCase()) ||
                 item.dependenciaSimplificada.toLowerCase().includes(tableSearchTerm.toLowerCase()) ||
                 (item.fechaRegistroParsed && item.fechaRegistroParsed.format('DD/MM/YYYY').includes(tableSearchTerm))
             );
         }
-        
+
         // Aplicar ordenamiento
         if (sortColumn) {
             filteredData.sort((a, b) => {
                 let aValue = a[sortColumn];
                 let bValue = b[sortColumn];
-                
+
                 // Manejo especial para fechas
                 if (sortColumn === 'fechaRegistro') {
                     aValue = a.fechaRegistroParsed;
@@ -2561,17 +2562,17 @@ function exportToExcel() {
                         bValue = bValue.toDate();
                     }
                 }
-                
+
                 if (aValue < bValue) return sortDirection === 'asc' ? -1 : 1;
                 if (aValue > bValue) return sortDirection === 'asc' ? 1 : -1;
                 return 0;
             });
         }
-        
+
         // Preparar datos para Excel
         const excelData = filteredData.map(item => {
             let statusText = item.estadoVencimiento || 'N/A';
-            
+
             if (statusText.includes('Contestado dentro del Término')) {
                 statusText = 'Contestado a Tiempo';
             } else if (statusText.includes('Contestado Fuera de Término')) {
@@ -2583,7 +2584,7 @@ function exportToExcel() {
             } else if (statusText.includes('No Aplica')) {
                 statusText = 'No Requiere Respuesta';
             }
-            
+
             return {
                 'Radicado': item.codigo,
                 'Asunto': item.asunto,
@@ -2599,11 +2600,11 @@ function exportToExcel() {
                 'Fecha Respuesta': item.fechaRespuestaParsed ? item.fechaRespuestaParsed.format('DD/MM/YYYY') : 'N/A'
             };
         });
-        
+
         // Crear libro de Excel
         const workbook = XLSX.utils.book_new();
         const worksheet = XLSX.utils.json_to_sheet(excelData);
-        
+
         // Configurar ancho de columnas
         const columnWidths = [
             { wch: 20 }, // Radicado
@@ -2620,40 +2621,40 @@ function exportToExcel() {
             { wch: 15 }  // Fecha Respuesta
         ];
         worksheet['!cols'] = columnWidths;
-        
+
         // Agregar hoja al libro
         XLSX.utils.book_append_sheet(workbook, worksheet, 'PQRSD Filtrados');
-        
+
         // Generar nombre del archivo
         const now = dayjs();
         const dateStr = now.format('YYYY-MM-DD_HH-mm');
         const totalRecords = excelData.length;
         let fileName = `PQRSD_Pendientes_${totalRecords}_registros_${dateStr}.xlsx`;
-        
+
         // Información adicional en el nombre si hay filtros específicos
         const yearFilter = document.getElementById('year-filter').value;
         const rangoMeses = obtenerRangoMeses();
         const dependencyFilter = document.getElementById('dependency-filter').value;
-        
+
         let filterInfo = [];
         if (yearFilter) filterInfo.push(`año-${yearFilter}`);
         if (rangoMeses.inicio !== 1 || rangoMeses.fin !== 12) {
             filterInfo.push(`meses-${rangoMeses.inicio}-${rangoMeses.fin}`);
         }
         if (dependencyFilter) filterInfo.push(dependencyFilter.substring(0, 10));
-        
+
         if (filterInfo.length > 0) {
             fileName = `PQRSD_Pendientes_${filterInfo.join('_')}_${totalRecords}_registros_${dateStr}.xlsx`;
         }
-        
+
         // Descargar archivo
         XLSX.writeFile(workbook, fileName);
-        
+
         console.log(`✅ Archivo Excel exportado: ${fileName} (${totalRecords} registros)`);
-        
+
         // Mostrar notificación de éxito
         showExportNotification(fileName, totalRecords);
-        
+
     } catch (error) {
         console.error('❌ Error al exportar Excel:', error);
         alert('Error al exportar el archivo Excel. Revise la consola para más detalles.');
@@ -2683,7 +2684,7 @@ function showExportNotification(fileName, totalRecords) {
         transform: translateX(100%);
         transition: all 0.3s ease;
     `;
-    
+
     notification.innerHTML = `
         <div style="display: flex; align-items: center; gap: 10px;">
             <i class="fas fa-file-excel" style="font-size: 20px;"></i>
@@ -2695,15 +2696,15 @@ function showExportNotification(fileName, totalRecords) {
             </div>
         </div>
     `;
-    
+
     document.body.appendChild(notification);
-    
+
     // Animación de entrada
     setTimeout(() => {
         notification.style.opacity = '1';
         notification.style.transform = 'translateX(0)';
     }, 100);
-    
+
     // Remover después de 4 segundos
     setTimeout(() => {
         notification.style.opacity = '0';
@@ -2722,7 +2723,7 @@ function inicializarDashboard() {
     if (!verificarLibrerias()) {
         return;
     }
-    
+
     // Event listeners para el archivo
     const fileUploader = document.getElementById('fileUploader');
     if (fileUploader) {
@@ -2731,7 +2732,7 @@ function inicializarDashboard() {
     } else {
         console.error('❌ Elemento fileUploader no encontrado');
     }
-    
+
     // Event listeners para filtros
     document.getElementById('year-filter').addEventListener('change', aplicarFiltros);
     document.getElementById('dependency-filter').addEventListener('change', aplicarFiltros);
@@ -2740,10 +2741,10 @@ function inicializarDashboard() {
     document.getElementById('typesall-filter').addEventListener('change', aplicarFiltros);
     document.getElementById('clear-filters').addEventListener('click', limpiarFiltros);
     document.getElementById('view-details').addEventListener('click', openDetailsModal);
-    
+
     // Inicializar range slider de meses
     inicializarRangeSlider();
-    
+
     console.log('Dashboard inicializado correctamente');
 }
 
@@ -2752,39 +2753,39 @@ function inicializarDashboard() {
  */
 async function manejarArchivoSeleccionado(event) {
     console.log('🚀🚀🚀 ARCHIVO SELECCIONADO - INICIANDO PROCESAMIENTO 🚀🚀🚀');
-    
+
     const archivo = event.target.files[0];
-    
+
     if (!archivo) {
         console.log('❌ No hay archivo seleccionado');
         return;
     }
-    
+
     console.log('📁 Archivo seleccionado:', archivo.name, 'Tamaño:', archivo.size, 'bytes');
-    
+
     // Validar tipo de archivo
     if (!archivo.name.toLowerCase().endsWith('.xlsx')) {
         mostrarError('Por favor seleccione un archivo Excel (.xlsx)');
         return;
     }
-    
+
     try {
         // Mostrar nombre del archivo
         document.getElementById('file-name').textContent = archivo.name;
         document.getElementById('file-status').classList.remove('hidden');
-        
+
         console.log('🔄 Iniciando procesamiento del archivo...');
-        
+
         // Procesar archivo
         datosOriginales = await procesarArchivo(archivo);
         datosFiltrados = [...datosOriginales];
-        
+
         console.log('✅ Archivo procesado:', datosOriginales.length, 'registros');
-        
+
         // Inicializar filtros
         console.log('🔧 Inicializando filtros...');
         inicializarFiltros();
-        
+
         // Mostrar secciones del dashboard
         console.log('🎨 Mostrando dashboard...');
         document.getElementById('welcome-message').classList.add('hidden');
@@ -2794,20 +2795,20 @@ async function manejarArchivoSeleccionado(event) {
         document.getElementById('trend-analysis').classList.remove('hidden');
         document.getElementById('charts-section').classList.remove('hidden');
         document.getElementById('footer').classList.remove('hidden');
-        
+
         // Actualizar dashboard
         console.log('📊 Actualizando visualizaciones...');
         actualizarDashboard();
-        
+
         console.log('🎉 Dashboard completado exitosamente');
-        
+
         // Agregar listener para redimensionar gráficas en cambios de orientación/tamaño
         window.addEventListener('resize', debounce(redimensionarGraficos, 250));
-        
+
     } catch (error) {
         console.error('❌ Error procesando archivo:', error);
         mostrarError(`Error procesando el archivo: ${error.message}`);
-        
+
         // Limpiar estado
         datosOriginales = [];
         datosFiltrados = [];
@@ -2827,7 +2828,7 @@ function esperarLibrerias() {
             console.log('XLSX:', !!window.XLSX);
             console.log('Chart:', !!window.Chart);
             console.log('dayjs:', !!window.dayjs);
-            
+
             if (window.XLSX && window.Chart && window.dayjs) {
                 console.log('✅ Todas las librerías están disponibles');
                 resolve();
@@ -2841,11 +2842,11 @@ function esperarLibrerias() {
 }
 
 // Inicializar cuando el DOM esté listo y las librerías cargadas
-document.addEventListener('DOMContentLoaded', async function() {
+document.addEventListener('DOMContentLoaded', async function () {
     try {
         // Esperar a que las librerías estén disponibles
         await esperarLibrerias();
-        
+
         // Configurar Day.js
         if (window.dayjs_plugin_customParseFormat) {
             dayjs.extend(dayjs_plugin_customParseFormat);
@@ -2853,10 +2854,10 @@ document.addEventListener('DOMContentLoaded', async function() {
         if (window.dayjs_plugin_weekday) {
             dayjs.extend(dayjs_plugin_weekday);
         }
-        
+
         // Inicializar dashboard
         inicializarDashboard();
-        
+
     } catch (error) {
         console.error('Error durante la inicialización:', error);
         mostrarError('Error durante la inicialización. Por favor recargue la página.');
@@ -2864,7 +2865,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 });
 
 // Manejar errores globales
-window.addEventListener('error', function(event) {
+window.addEventListener('error', function (event) {
     console.error('Error global:', event.error);
     mostrarError('Ha ocurrido un error inesperado. Por favor recargue la página.');
 });
