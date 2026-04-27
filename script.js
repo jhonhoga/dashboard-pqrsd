@@ -2223,6 +2223,344 @@ function obtenerRangoMeses() {
     return { inicio: start, fin: end };
 }
 
+/**
+ * Construye el resumen por dependencia con base en los datos filtrados
+ */
+function construirResumenDependencias(data) {
+    const resumenPorDependencia = {};
+
+    data.forEach(registro => {
+        const dependencia = registro.dependenciaSimplificada || 'SIN DEPENDENCIA';
+
+        if (!resumenPorDependencia[dependencia]) {
+            resumenPorDependencia[dependencia] = {
+                dependencia,
+                totalRadicados: 0,
+                totalContestadas: 0,
+                noRequierenRespuesta: 0,
+                contestadasATermino: 0,
+                contestadasFueraDeTiempo: 0,
+                noContestadas: 0,
+                noContestadasPlazoVencido: 0,
+                noContestadasPlazoVigente: 0
+            };
+        }
+
+        const fila = resumenPorDependencia[dependencia];
+        fila.totalRadicados++;
+
+        if (registro.estado === 'Contestado') {
+            fila.totalContestadas++;
+        }
+
+        if (registro.estado === 'No Requiere Respuesta') {
+            fila.noRequierenRespuesta++;
+        }
+
+        if (registro.estadoVencimiento === 'Contestado dentro del Término') {
+            fila.contestadasATermino++;
+        }
+
+        if (registro.estadoVencimiento === 'Contestado Fuera de Término') {
+            fila.contestadasFueraDeTiempo++;
+        }
+
+        if (registro.estado === 'No Contestado') {
+            fila.noContestadas++;
+        }
+
+        if (registro.estadoVencimiento === 'No Contestado - Plazo Vencido') {
+            fila.noContestadasPlazoVencido++;
+        }
+
+        if (registro.estadoVencimiento === 'No Contestado - Plazo Vigente') {
+            fila.noContestadasPlazoVigente++;
+        }
+    });
+
+    return Object.values(resumenPorDependencia)
+        .sort((a, b) => b.totalRadicados - a.totalRadicados || a.dependencia.localeCompare(b.dependencia));
+}
+
+/**
+ * Abre modal con relacion por dependencia
+ */
+function openDependenciasModal() {
+    const modal = document.getElementById('dependencias-modal');
+    if (!modal) {
+        return;
+    }
+
+    updateDependenciasModalTable();
+    modal.style.display = 'flex';
+}
+
+/**
+ * Cierra modal con relacion por dependencia
+ */
+function closeDependenciasModal() {
+    const modal = document.getElementById('dependencias-modal');
+    if (!modal) {
+        return;
+    }
+
+    modal.style.display = 'none';
+}
+
+/**
+ * Actualiza tabla del modal de relacion por dependencia
+ */
+function updateDependenciasModalTable() {
+    const tbody = document.getElementById('dependencias-table-body');
+    if (!tbody) {
+        return;
+    }
+
+    const resumen = construirResumenDependencias(datosFiltrados);
+    tbody.innerHTML = '';
+
+    if (resumen.length === 0) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="9" style="text-align: center; padding: 2rem; color: var(--text-secondary);">
+                    No hay datos disponibles para mostrar con los filtros actuales
+                </td>
+            </tr>
+        `;
+        return;
+    }
+
+    resumen.forEach(item => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${item.dependencia}</td>
+            <td class="numeric-cell">${item.totalRadicados.toLocaleString()}</td>
+            <td class="numeric-cell">${item.totalContestadas.toLocaleString()}</td>
+            <td class="numeric-cell">${item.noRequierenRespuesta.toLocaleString()}</td>
+            <td class="numeric-cell">${item.contestadasATermino.toLocaleString()}</td>
+            <td class="numeric-cell">${item.contestadasFueraDeTiempo.toLocaleString()}</td>
+            <td class="numeric-cell">${item.noContestadas.toLocaleString()}</td>
+            <td class="numeric-cell">${item.noContestadasPlazoVencido.toLocaleString()}</td>
+            <td class="numeric-cell">${item.noContestadasPlazoVigente.toLocaleString()}</td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+/**
+ * Exporta el resumen de dependencias a Excel
+ */
+function exportDependenciasToExcel() {
+    try {
+        const resumen = construirResumenDependencias(datosFiltrados);
+
+        if (resumen.length === 0) {
+            mostrarError('No hay datos para exportar en el resumen por dependencia.');
+            return;
+        }
+
+        const excelData = resumen.map(item => ({
+            'Dependencia': item.dependencia,
+            'Total Radicados': item.totalRadicados,
+            'Total Contestadas': item.totalContestadas,
+            'No Requieren Respuesta': item.noRequierenRespuesta,
+            'Contestadas a Termino': item.contestadasATermino,
+            'Contestadas Fuera de Tiempo': item.contestadasFueraDeTiempo,
+            'No Contestadas': item.noContestadas,
+            'No Contestadas con Plazo Vencido': item.noContestadasPlazoVencido,
+            'No Contestadas Plazo Vigente': item.noContestadasPlazoVigente
+        }));
+
+        const totales = resumen.reduce((acc, item) => {
+            acc.totalRadicados += item.totalRadicados;
+            acc.totalContestadas += item.totalContestadas;
+            acc.noRequierenRespuesta += item.noRequierenRespuesta;
+            acc.contestadasATermino += item.contestadasATermino;
+            acc.contestadasFueraDeTiempo += item.contestadasFueraDeTiempo;
+            acc.noContestadas += item.noContestadas;
+            acc.noContestadasPlazoVencido += item.noContestadasPlazoVencido;
+            acc.noContestadasPlazoVigente += item.noContestadasPlazoVigente;
+            return acc;
+        }, {
+            totalRadicados: 0,
+            totalContestadas: 0,
+            noRequierenRespuesta: 0,
+            contestadasATermino: 0,
+            contestadasFueraDeTiempo: 0,
+            noContestadas: 0,
+            noContestadasPlazoVencido: 0,
+            noContestadasPlazoVigente: 0
+        });
+
+        excelData.push({
+            'Dependencia': 'TOTAL',
+            'Total Radicados': totales.totalRadicados,
+            'Total Contestadas': totales.totalContestadas,
+            'No Requieren Respuesta': totales.noRequierenRespuesta,
+            'Contestadas a Termino': totales.contestadasATermino,
+            'Contestadas Fuera de Tiempo': totales.contestadasFueraDeTiempo,
+            'No Contestadas': totales.noContestadas,
+            'No Contestadas con Plazo Vencido': totales.noContestadasPlazoVencido,
+            'No Contestadas Plazo Vigente': totales.noContestadasPlazoVigente
+        });
+
+        const workbook = XLSX.utils.book_new();
+        const worksheet = XLSX.utils.json_to_sheet(excelData);
+
+        worksheet['!cols'] = [
+            { wch: 35 },
+            { wch: 16 },
+            { wch: 18 },
+            { wch: 22 },
+            { wch: 21 },
+            { wch: 25 },
+            { wch: 16 },
+            { wch: 30 },
+            { wch: 27 }
+        ];
+
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'Resumen Dependencias');
+
+        const fecha = dayjs().format('YYYY-MM-DD_HH-mm');
+        const fileName = `Relacion_Dependencias_${fecha}.xlsx`;
+        XLSX.writeFile(workbook, fileName);
+
+        console.log(`✅ Excel de dependencias exportado: ${fileName}`);
+    } catch (error) {
+        console.error('❌ Error exportando resumen de dependencias a Excel:', error);
+        mostrarError('No fue posible generar el archivo Excel del resumen por dependencia.');
+    }
+}
+
+/**
+ * Exporta el resumen de dependencias a PDF
+ */
+function exportDependenciasToPDF() {
+    try {
+        const resumen = construirResumenDependencias(datosFiltrados);
+
+        if (resumen.length === 0) {
+            mostrarError('No hay datos para exportar en el resumen por dependencia.');
+            return;
+        }
+
+        if (!window.jspdf || !window.jspdf.jsPDF) {
+            mostrarError('La libreria de PDF no esta disponible. Recargue la pagina e intente de nuevo.');
+            return;
+        }
+
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({ orientation: 'landscape', unit: 'pt', format: 'a4' });
+
+        if (typeof doc.autoTable !== 'function') {
+            mostrarError('El complemento de tabla PDF no esta disponible. Recargue la pagina e intente de nuevo.');
+            return;
+        }
+
+        const fechaGeneracion = dayjs().format('DD/MM/YYYY HH:mm');
+        doc.setFontSize(14);
+        doc.text('Relacion de Secretarias por Dependencia', 40, 40);
+        doc.setFontSize(9);
+        doc.text(`Generado: ${fechaGeneracion}`, 40, 58);
+
+        const cuerpoTabla = resumen.map(item => [
+            item.dependencia,
+            item.totalRadicados.toLocaleString('es-CO'),
+            item.totalContestadas.toLocaleString('es-CO'),
+            item.noRequierenRespuesta.toLocaleString('es-CO'),
+            item.contestadasATermino.toLocaleString('es-CO'),
+            item.contestadasFueraDeTiempo.toLocaleString('es-CO'),
+            item.noContestadas.toLocaleString('es-CO'),
+            item.noContestadasPlazoVencido.toLocaleString('es-CO'),
+            item.noContestadasPlazoVigente.toLocaleString('es-CO')
+        ]);
+
+        const totales = resumen.reduce((acc, item) => {
+            acc.totalRadicados += item.totalRadicados;
+            acc.totalContestadas += item.totalContestadas;
+            acc.noRequierenRespuesta += item.noRequierenRespuesta;
+            acc.contestadasATermino += item.contestadasATermino;
+            acc.contestadasFueraDeTiempo += item.contestadasFueraDeTiempo;
+            acc.noContestadas += item.noContestadas;
+            acc.noContestadasPlazoVencido += item.noContestadasPlazoVencido;
+            acc.noContestadasPlazoVigente += item.noContestadasPlazoVigente;
+            return acc;
+        }, {
+            totalRadicados: 0,
+            totalContestadas: 0,
+            noRequierenRespuesta: 0,
+            contestadasATermino: 0,
+            contestadasFueraDeTiempo: 0,
+            noContestadas: 0,
+            noContestadasPlazoVencido: 0,
+            noContestadasPlazoVigente: 0
+        });
+
+        cuerpoTabla.push([
+            'TOTAL',
+            totales.totalRadicados.toLocaleString('es-CO'),
+            totales.totalContestadas.toLocaleString('es-CO'),
+            totales.noRequierenRespuesta.toLocaleString('es-CO'),
+            totales.contestadasATermino.toLocaleString('es-CO'),
+            totales.contestadasFueraDeTiempo.toLocaleString('es-CO'),
+            totales.noContestadas.toLocaleString('es-CO'),
+            totales.noContestadasPlazoVencido.toLocaleString('es-CO'),
+            totales.noContestadasPlazoVigente.toLocaleString('es-CO')
+        ]);
+
+        doc.autoTable({
+            startY: 70,
+            head: [[
+                'Dependencia',
+                'Total Radicados',
+                'Total Contestadas',
+                'No Requieren Resp.',
+                'Contestadas a Termino',
+                'Contestadas Fuera',
+                'No Contestadas',
+                'No Contestadas Vencido',
+                'No Contestadas Vigente'
+            ]],
+            body: cuerpoTabla,
+            styles: {
+                fontSize: 7,
+                cellPadding: 4,
+                lineWidth: 0.2
+            },
+            headStyles: {
+                fillColor: [33, 115, 70],
+                textColor: 255
+            },
+            bodyStyles: {
+                textColor: [20, 20, 20]
+            },
+            alternateRowStyles: {
+                fillColor: [245, 245, 245]
+            },
+            columnStyles: {
+                0: { cellWidth: 160 },
+                1: { cellWidth: 75, halign: 'right' },
+                2: { cellWidth: 80, halign: 'right' },
+                3: { cellWidth: 88, halign: 'right' },
+                4: { cellWidth: 88, halign: 'right' },
+                5: { cellWidth: 88, halign: 'right' },
+                6: { cellWidth: 78, halign: 'right' },
+                7: { cellWidth: 95, halign: 'right' },
+                8: { cellWidth: 95, halign: 'right' }
+            }
+        });
+
+        const fecha = dayjs().format('YYYY-MM-DD_HH-mm');
+        const fileName = `Relacion_Dependencias_${fecha}.pdf`;
+        doc.save(fileName);
+
+        console.log(`✅ PDF de dependencias exportado: ${fileName}`);
+    } catch (error) {
+        console.error('❌ Error exportando resumen de dependencias a PDF:', error);
+        mostrarError('No fue posible generar el archivo PDF del resumen por dependencia.');
+    }
+}
+
 // ===========================================
 // MODAL DE DETALLES
 // ===========================================
@@ -2745,6 +3083,36 @@ function inicializarDashboard() {
     document.getElementById('typesall-filter').addEventListener('change', aplicarFiltros);
     document.getElementById('clear-filters').addEventListener('click', limpiarFiltros);
     document.getElementById('view-details').addEventListener('click', openDetailsModal);
+
+    // Event listeners del modal de relacion por dependencia
+    const totalRadicadosCard = document.getElementById('total-radicados-card');
+    if (totalRadicadosCard) {
+        totalRadicadosCard.addEventListener('click', openDependenciasModal);
+        totalRadicadosCard.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                openDependenciasModal();
+            }
+        });
+    }
+
+    const dependenciasModal = document.getElementById('dependencias-modal');
+    if (dependenciasModal) {
+        dependenciasModal.addEventListener('click', (event) => {
+            if (event.target === dependenciasModal) {
+                closeDependenciasModal();
+            }
+        });
+    }
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            const modalDependencias = document.getElementById('dependencias-modal');
+            if (modalDependencias && modalDependencias.style.display === 'flex') {
+                closeDependenciasModal();
+            }
+        }
+    });
 
     // Inicializar range slider de meses
     inicializarRangeSlider();

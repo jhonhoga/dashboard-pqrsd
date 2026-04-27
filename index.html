@@ -162,7 +162,7 @@
         <!-- Tarjetas KPIs -->
         <section class="kpis-section hidden" id="kpis-section">
             <div class="kpis-grid">
-                <div class="kpi-card total">
+                <div class="kpi-card total kpi-card-clickable" id="total-radicados-card" role="button" tabindex="0" aria-label="Ver relacion de dependencias para total de radicados">
                     <div class="kpi-icon">
                         <i class="fas fa-file-alt"></i>
                     </div>
@@ -416,6 +416,53 @@
         </div>
     </div>
 
+    <!-- Modal de Relacion por Dependencia -->
+    <div id="dependencias-modal" class="modal">
+        <div class="modal-content dependency-modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-building"></i> Relacion de Secretarias por Dependencia</h2>
+                <div class="modal-header-buttons">
+                    <button class="export-excel-btn" onclick="exportDependenciasToExcel()" title="Exportar resumen a Excel">
+                        <i class="fas fa-file-excel"></i>
+                        <span>Excel</span>
+                    </button>
+                    <button class="export-pdf-btn" onclick="exportDependenciasToPDF()" title="Exportar resumen a PDF">
+                        <i class="fas fa-file-pdf"></i>
+                        <span>PDF</span>
+                    </button>
+                    <button class="modal-close" onclick="closeDependenciasModal()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-body dependency-modal-body">
+                <p class="dependency-modal-description">
+                    Resumen generado con los filtros activos del dashboard.
+                </p>
+                <div class="details-table-container dependency-table-container">
+                    <table class="details-table dependency-summary-table">
+                        <thead>
+                            <tr>
+                                <th>Dependencia</th>
+                                <th>Total Radicados</th>
+                                <th>Total Contestadas</th>
+                                <th>No Requieren Respuesta</th>
+                                <th>Contestadas a Termino</th>
+                                <th>Contestadas Fuera de Tiempo</th>
+                                <th>No Contestadas</th>
+                                <th>No Contestadas con Plazo Vencido</th>
+                                <th>No Contestadas Plazo Vigente</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dependencias-table-body">
+                            <!-- Datos dinamicos -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- CDN - Librerías Externas -->
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
@@ -423,6 +470,8 @@
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.10/dayjs.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.10/plugin/customParseFormat.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.10/plugin/weekday.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js"></script>
 
     <script src="script.js"></script>
 </body>

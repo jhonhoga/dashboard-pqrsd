@@ -630,6 +630,15 @@ body {
     box-shadow: var(--shadow-lg);
 }
 
+.kpi-card-clickable {
+    cursor: pointer;
+}
+
+.kpi-card-clickable:focus-visible {
+    outline: 2px solid var(--accent-blue);
+    outline-offset: 2px;
+}
+
 .kpi-card.total::before { background: var(--accent-blue); }
 .kpi-card.success::before { background: var(--success); }
 .kpi-card.warning::before { background: var(--warning); }
@@ -980,7 +989,8 @@ body {
     gap: var(--spacing-sm);
 }
 
-.export-excel-btn {
+.export-excel-btn,
+.export-pdf-btn {
     background: #217346;
     color: white;
     border: none;
@@ -996,13 +1006,23 @@ body {
     white-space: nowrap;
 }
 
-.export-excel-btn:hover {
+.export-pdf-btn {
+    background: #d64242;
+}
+
+.export-excel-btn:hover,
+.export-pdf-btn:hover {
     background: #1a5a37;
     transform: translateY(-1px);
     box-shadow: var(--shadow-md);
 }
 
-.export-excel-btn i {
+.export-pdf-btn:hover {
+    background: #b93535;
+}
+
+.export-excel-btn i,
+.export-pdf-btn i {
     font-size: 1rem;
 }
 
@@ -1072,6 +1092,49 @@ body {
     max-height: 90vh;
     display: flex;
     flex-direction: column;
+}
+
+.dependency-modal-content {
+    max-width: 96vw;
+    width: 1400px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.dependency-modal-body {
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.dependency-modal-description {
+    padding: var(--spacing-md) var(--spacing-lg);
+    margin: 0;
+    color: var(--text-secondary);
+    background: var(--bg-tertiary);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.dependency-table-container {
+    flex: 1;
+    overflow: auto;
+}
+
+.dependency-summary-table th,
+.dependency-summary-table td {
+    white-space: nowrap;
+}
+
+.dependency-summary-table td.numeric-cell {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+.dependency-summary-table td:first-child {
+    color: var(--text-primary);
 }
 
 .details-modal-body {
@@ -1390,17 +1453,25 @@ body {
         max-height: 95vh;
         margin: 2.5vh auto;
     }
+
+    .dependency-modal-content {
+        width: 95vw;
+        max-height: 95vh;
+        margin: 2.5vh auto;
+    }
     
     .modal-header-buttons {
         gap: var(--spacing-xs);
     }
     
-    .export-excel-btn {
+    .export-excel-btn,
+    .export-pdf-btn {
         padding: var(--spacing-xs) var(--spacing-sm);
         font-size: 0.75rem;
     }
     
-    .export-excel-btn span {
+    .export-excel-btn span,
+    .export-pdf-btn span {
         display: none; /* Ocultar texto en móvil, solo mostrar icono */
     }
     
@@ -1426,6 +1497,12 @@ body {
     .details-table th,
     .details-table td {
         padding: var(--spacing-sm);
+    }
+
+    .dependency-summary-table th,
+    .dependency-summary-table td {
+        padding: var(--spacing-sm);
+        font-size: 0.78rem;
     }
     
     .asunto-cell {
