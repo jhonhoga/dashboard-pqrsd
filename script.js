@@ -186,7 +186,8 @@ const MAPEO_DEPENDENCIAS = {
     "Secretaría de Planeación - Dirección de Estudios Socioeconómicos e Investigaciones": "PLANEACION",
     "Secretaría de Hacienda": "HACIENDA",
     "Oficina de Cobro Coactivo": "COBRO COACTIVO",
-    "Secretaría de Hacienda - Dirección de Presupuesto": "HACIENDA",
+    "Dirección de Cobro Coactivo": "COBRO COACTIVO",
+    "Secretaría de Hacienda - Dirección de Presupuesto": "PRESUPUESTO",
     "Secretaría de Hacienda - Dirección de Contabilidad": "HACIENDA",
     "Dirección de Tesorería": "TESORERIA",
     "Dirección Financiera de Ingresos": "INGRESOS",
@@ -194,7 +195,7 @@ const MAPEO_DEPENDENCIAS = {
     "Fondo Territorial de Pensiones": "HACIENDA - FTP",
     "Secretaría del Interior y Asuntos Gubernamentales": "INTERIOR",
     "Secretaría del Interior y Asuntos Gubernamentales - Oficina de Juventudes": "INTERIOR",
-    "Secretaría del Interior y Asuntos Gubernamentales - Dirección de Seguridad y Convivencia Ciudadana": "INTERIOR",
+    "Secretaría del Interior y Asuntos Gubernamentales - Dirección de Seguridad y Convivencia Ciudadana": "SEGURIDAD",
     "Secretaría del Interior y Asuntos Gubernamentales - Dirección de Asistencia Municipal": "INTERIOR",
     "Secretaría de Desarrollo Regional y Ordenamiento Territorial": "DESARROLLO ECONOMICO",
     "Secretaría de Desarrollo Regional y Ordenamiento Territorial - Dirección de Ambiente y Desarrollo Sostenible": "DESARROLLO ECONOMICO",
@@ -260,7 +261,8 @@ const MAPEO_DEPENDENCIAS = {
     "Secretaría del Interior": "INTERIOR",
     "Oficina de Gestión del Riesgo de Desastres": "OGDRD",
     "Secretaría de la Mujer para la Equidad de Género y la Gestión Social": "MUJER",
-    "Dirección de Seguridad y Convivencia": "INTERIOR",
+    "Dirección de Seguridad y Convivencia": "SEGURIDAD",
+    "Dirección de Seguridad": "SEGURIDAD",
     "Dirección de Contratación": "JURIDICA",
     "Secretaría Privada": "PRIVADA",
     "Empresa de Obras Sanitarias de Bolivar": "EMPOBOL",
@@ -277,7 +279,7 @@ const MAPEO_DEPENDENCIAS = {
     "Oficina de Juventudes": "INTERIOR",
     "Grupo de Conceptos y Actos Administrativos": "JURIDICA",
     "Dirección de Vivienda": "DESARROLLO ECONOMICO",
-    "Dirección de Presupuesto": "HACIENDA",
+    "Dirección de Presupuesto": "PRESUPUESTO",
     "Secretaría De La Igualdad": "IGUALDAD",
     "Oficina de Control Disciplinario de Juzgamiento": "OCD JUZGAMIENTO",
     "Despacho del Gobernador - Oficina de Control Disciplinario de Juzgamiento": "OCD JUZGAMIENTO",
@@ -327,7 +329,9 @@ const MAPEO_DEPENDENCIAS = {
     "Oficina de Control Interno Disciplinario de Instruccion": "OCD INSTRUCCION",
     "Oficina Asesora de Asuntos Jurídicos de la Secretaría de Educación": "EDUCACION",
     "Unidad de Atención al Ciudadano": "ATN CIUDADANO",
-    "Juridica": "JURIDICA"
+    "Juridica": "JURIDICA", 
+    "Dirección de Restitución de Tierras": "AGRICULTURA",
+    "Dirección de Derechos Humanos y Grupos Poblacionales": "IGUALDAD",
 };
 
 // Días festivos de Colombia 2024-2025-2026
