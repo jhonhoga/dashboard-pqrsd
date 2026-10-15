@@ -332,6 +332,9 @@ const MAPEO_DEPENDENCIAS = {
     "Juridica": "JURIDICA", 
     "Dirección de Restitución de Tierras": "AGRICULTURA",
     "Dirección de Derechos Humanos y Grupos Poblacionales": "IGUALDAD",
+    "Secretaría TIC": "TIC",
+    "Grupo de Gestión Financiera": "SALUD",
+    "Instituto de Cultura yTurismo  de Bolivar": "ICULTUR",
 };
 
 // Días festivos de Colombia 2024-2025-2026
@@ -685,9 +688,11 @@ function obtenerDependenciaSimplificada(dependenciaOriginal) {
         }
     }
 
-    // Si no encuentra mapeo, usar "OTROS" y loguear para revisión
-    console.warn(`🔍 Dependencia sin mapear: "${dependenciaStr}"`);
-    return 'OTROS';
+    // Si no encuentra mapeo, conservar el nombre real (normalizado) para agrupar
+    // por dependencia en lugar de juntar todo en "OTROS", y loguear para revisión.
+    const dependenciaNormalizada = dependenciaStr.replace(/\s+/g, ' ').trim();
+    console.warn(`🔍 Dependencia sin mapear (se conserva su nombre real): "${dependenciaNormalizada}"`);
+    return dependenciaNormalizada;
 }
 
 /**
