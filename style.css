@@ -190,6 +190,72 @@ body {
     border: 1px solid rgba(63, 185, 80, 0.3);
 }
 
+/* Botón de navegación entre dashboards */
+.nav-button {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.nav-button:hover {
+    border-color: var(--accent-cyan);
+    color: var(--accent-cyan);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.nav-button.ias {
+    background: linear-gradient(135deg, var(--accent-orange), var(--accent-yellow));
+    color: #fff;
+    border: none;
+    box-shadow: var(--shadow-md);
+}
+
+.nav-button.ias:hover {
+    color: #fff;
+    box-shadow: var(--shadow-lg);
+}
+
+.nav-button.pqrsd {
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+    color: #fff;
+    border: none;
+    box-shadow: var(--shadow-md);
+}
+
+.nav-button.pqrsd:hover {
+    color: #fff;
+    box-shadow: var(--shadow-lg);
+}
+
+/* Etiquetas de Entes de Control */
+.ente-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: 2px var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.ente-badge.procuraduria { background: rgba(88, 166, 255, 0.15); color: var(--accent-blue); }
+.ente-badge.contraloria { background: rgba(210, 153, 34, 0.15); color: var(--accent-yellow); }
+.ente-badge.fiscalia { background: rgba(248, 81, 73, 0.15); color: var(--accent-orange); }
+.ente-badge.defensoria { background: rgba(57, 208, 216, 0.15); color: var(--accent-cyan); }
+.ente-badge.personeria { background: rgba(165, 165, 255, 0.15); color: var(--accent-purple); }
+.ente-badge.otros { background: rgba(125, 133, 144, 0.15); color: var(--text-secondary); }
+
 /* Loading */
 .loading {
     display: flex;
